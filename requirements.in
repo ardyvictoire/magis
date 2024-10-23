@@ -1,7 +1,7 @@
 build
-click 
+click
 packaging
-pip    
+pip
 pip-tools
 pyproject_hooks
 setuptools

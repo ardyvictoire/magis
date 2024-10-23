@@ -1,10 +1,19 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, redirect, render
 
-from .forms import (Client_form, Comment_form, Examen_form, Medecin_form,
-                    MedecinLoginForm, Ordonnance_form, Resultat_form, UserForm)
+from .forms import (
+    Client_form,
+    Comment_form,
+    Examen_form,
+    Medecin_form,
+    MedecinLoginForm,
+    Ordonnance_form,
+    Resultat_form,
+    UserForm,
+)
 from .models import Client, Comment, Examen, Medecin, Ordonnance, Resultat
 
 # Create your views here.

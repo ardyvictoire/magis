@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.core import validators
 
 from .models import Client, Comment, Examen, Medecin, Ordonnance, Resultat
+
+# from django.core import validators
 
 
 # form pour creat Medecin Directeur
