@@ -1,3 +1,3 @@
-__pycache__
-**/db.sqlite3
-**/local_settings.py
+TestMagis/labo_medica/__pycache__
+*/.sqlite3
+TestMagis/labo_medica/settings/localsettings.py
