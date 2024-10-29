@@ -18,7 +18,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+
 from labo_medical.apps.medicalApp import views
+from labo_medical.apps.api.views import UserLogin, UserRegister
+# from labo_medical.apps.api.views import UserRegister
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -37,6 +40,7 @@ urlpatterns = [
     path("Resultat_Register/", views.resultat_Register, name="resultat_Register"),
     path("ordonnance_register/", views.ordonnance_register, name="ordonnance_register"),
     path("Comment_register/", views.comment_register, name="comment_register"),
+
     # LES URLS POURS LES PAGES DE L'APPLICA
     path("client_data/", views.client_data, name="client_data"),
     path("comment_data/", views.comment_data, name="comment_data"),
@@ -44,6 +48,7 @@ urlpatterns = [
     path("medecin_data/", views.medecin_data, name="medecin_data"),
     path("ordonnance_data/", views.ordonnance_data, name="ordonnance_data"),
     path("result_data/", views.result_data, name="result_data"),
+
     # delete Data
     path("delete/<int:id>/", views.delete_date, name="delete_data"),
     path(
@@ -66,4 +71,7 @@ urlpatterns = [
         views.delete_data_result,
         name="delete_data_result",
     ),
+
+    # url for token_auth
+    path("registerToken/", UserRegister.as_view())
 ]
