@@ -1,0 +1,51 @@
+{% extends '../base/base.html' %}
+
+{% block content %}
+
+     <!-- Utilisateur -->
+    <div class="">
+
+        <div>
+            <a href="{% url 'resultat_Register' %}" class="btn btn-success">Add Resultat</a>
+            <a href="{% url 'medecin_logout' %}" class="btn btn-primary">Deconnexion</a>
+        </div>
+        <br>
+
+        <h3 class="alert alert-success">Les Examens</h3>
+        {% if examen %}
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name Examen</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+
+            {% for examens in examen %}
+            <tbody>
+            <tr>
+                <th scope="row">{{examens.id}}</th>
+                <td>{{examens.name_examen}}</td>
+                <td>{{examens.prix}} $</td>
+                <td>{{examens.description}}</td>
+                <td>
+                    <a href="" class="btn btn-warning">Mofier</a>
+                    <form action="{% url 'delete_data_examen' examens.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+
+    {% else %}
+    <h4 class="alert alert-danger"></h4>
+    {% endif %}
+    </div>
+
+{% endblock content %}

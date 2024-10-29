@@ -1,0 +1,21 @@
+{% extends '../base/base.html' %}
+
+{% block content %}
+
+    <form action="" method="post">
+        <div>
+            <a href="{% url 'medecin_logout' %}" class="btn btn-primary">Deconnexion</a>
+        </div>
+        <br>
+
+        <div>
+            <h3 class="text-primary my-3">Enregister Client</h3>
+        </div>
+
+        {% csrf_token %}
+        {{clien.as_p}}
+
+        <button class="btn btn-success" type="submit">Envoyer</button>
+    </form>
+
+{% endblock content %}

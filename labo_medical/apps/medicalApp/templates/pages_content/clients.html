@@ -1,0 +1,55 @@
+{% extends '../base/base.html' %}
+
+{% block content %}
+
+     <!-- Utilisateur -->
+    <div class="">
+        <div>
+            <a href="{% url 'examen_register' %}" class="btn btn-success">Add Examen</a>
+            <a href="{% url 'medecin_logout' %}" class="btn btn-primary">Deconnexion</a>
+        </div>
+
+        <br><br>
+
+        <h3 class="alert alert-success">Les Clients</h3>
+        {% if client %}
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col">adress</th>
+                <th scope="col">birthday_date</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+
+            {% for clients in client %}
+            <tbody>
+            <tr>
+                <th scope="row">{{clients.id}}</th>
+                <td>{{clients.names}}</td>
+                <td>{{clients.email}}</td>
+                <td>{{clients.phone_numb}}</td>
+                <td>{{clients.adress}}</td>
+                <td>{{clients.birthday_date}}</td>
+                <td class="d-inline">
+                    <a href="" class="btn btn-warning">Mofier</a>
+                    <form action="{% url 'delete_data' clients.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+
+    {% else %}
+    <h4 class="alert alert-danger"></h4>
+    {% endif %}
+    </div>
+
+{% endblock content %}

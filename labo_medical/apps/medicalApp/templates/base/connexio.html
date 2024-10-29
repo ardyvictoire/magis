@@ -1,0 +1,21 @@
+{% extends './base.html' %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+
+        <br><br>
+        <p class="alrt alert-secondary">Tu na pas un compte <a href="{% url 'medecin_Register' %}" class="alert-primary">S'inscrire</a></p>
+    </form>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+{% endblock content %}
