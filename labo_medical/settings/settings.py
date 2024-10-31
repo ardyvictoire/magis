@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework", 
     "rest_framework.authtoken",
     "oauth2_provider",
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
@@ -82,6 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "labo_medical.wsgi.application"
 
+AUTH_USER_LOGIN = 'medicalApp.User'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

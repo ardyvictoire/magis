@@ -45,7 +45,7 @@ class Docter_form(forms.ModelForm):
     class Meta:
         model = Docter
         # fields = ["first_name", "last_name", "email", "phone_numb", "adress", "birthday_date", "user", "speciality", "password"]
-        fields = ["names", "email", "phone_numb", "adress", "birthday_date", "speciality"]
+        fields = ["names", "email", "phone_numb", "adress", "birthday_date", "user", "speciality"]
         widgets = {
             "names": forms.TextInput(
                 attrs={"class": "form-control", "autocomplete": "off"}
@@ -71,11 +71,8 @@ class Docter_form(forms.ModelForm):
             "speciality": forms.Select(
                 attrs={"class": "form-control", "autocomplete": "off"}
             ),
-            # "password": forms.TextInput(
-            #     attrs={"class": "form-control", "autocomplete": "off"}
-            # ),
 
-            "user":forms.TextInput(
+            "user":forms.Select(
                 attrs={"class": "form-control", "autocomplete": "off"}
             ),
             
@@ -195,15 +192,12 @@ class Comment_form(forms.ModelForm):
 class Ordonnance_form(forms.ModelForm):
     class Meta:
         model = Ordonanc
-        fields = ["client", "docter", "ordonnanc_creat_at"]
+        fields = ["client", "docter"]
         widgets = {
             "client": forms.Select(
                 attrs={"class": "form-control", "autocomplete": "off"}
             ),
             "docter": forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-            "ordonnanc_creat_at": forms.DateInput(
                 attrs={"class": "form-control", "autocomplete": "off"}
             ),
         }

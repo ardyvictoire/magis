@@ -79,5 +79,6 @@ urlpatterns = [
 
     # url for token_auth
     path("registerToken/", UserRegister.as_view()),
+    path("loginToken/", UserLogin.as_view()),
     path("registeAndList/", SpecialityRegisterAndList.as_view()),
 ]

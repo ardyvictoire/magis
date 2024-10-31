@@ -13,6 +13,11 @@ class User(BaseModel, AbstractBaseUser):
     birthday_date = models.DateField()
     password = models.TextField(max_length=255)
 
+    USERNAME_FIELD = 'email'
+
+    def __str__(self) :
+        return self.names
+
     groups = models.ManyToManyField(
         Group,
         related_name='custom_user_set',
@@ -30,11 +35,17 @@ class User(BaseModel, AbstractBaseUser):
 
 class Speciality(BaseModel):
     name = models.TextField(max_length=80)
+
+    def __str__(self) :
+        return self.name
     
 class Docter(User, BaseModel):
     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name="docterSpeciality")
-    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docters")
+    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="doctersClients", null=True)
 
+    def __str__(self) :
+        return self.names
+    
     class Mata:
         verbose_name = "Docter"
 
@@ -44,11 +55,14 @@ class Exam(BaseModel):
     prix = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField() 
 
+    def __str__(self) :
+        return self.name_examen
+
 # les donnees de la table CLIENT(Patient)
 class Client(User, BaseModel):
     examen_id = models.ForeignKey(Exam, on_delete=models.RESTRICT, related_name="examClient")
-    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="userClients")
-    docter_id = models.OneToOneField(Docter, on_delete=models.RESTRICT, related_name="docterClients")
+    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="userClients", null=True)
+    docter_id = models.OneToOneField(Docter, on_delete=models.RESTRICT, related_name="docterClients", null=True)
     password = None
 
     class Meta:
@@ -85,4 +99,3 @@ class Ordonanc(BaseModel):
     docter = models.ForeignKey(
         Docter, on_delete=models.CASCADE, related_name="ordonnance"
     )
-    ordonnanc_creat_at = models.DateField()
