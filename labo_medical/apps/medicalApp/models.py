@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission, AbstractBaseUser
+from labo_medical.apps.core.models import BaseModel
 # Create your models here.
 
 
 # les donnees du medecin Directeur qui va enregistrer les laboratins
-class User(AbstractBaseUser):
+class User(BaseModel, AbstractBaseUser):
     names = models.TextField(max_length=60)
     email = models.EmailField(max_length=90)
     phone_numb = models.CharField(max_length=23)
@@ -27,10 +28,10 @@ class User(AbstractBaseUser):
 
 # les donnees de la table MEDECIN
 
-class Speciality(models.Model):
+class Speciality(BaseModel):
     name = models.TextField(max_length=80)
     
-class Docter(User):
+class Docter(User, BaseModel):
     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name="docterSpeciality")
     user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docters")
 
@@ -38,13 +39,13 @@ class Docter(User):
         verbose_name = "Docter"
 
 # les donnees de la table Examen(Test)
-class Exam(models.Model):
+class Exam(BaseModel):
     name_examen = models.CharField(max_length=80)
     prix = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField() 
 
 # les donnees de la table CLIENT(Patient)
-class Client(User):
+class Client(User, BaseModel):
     examen_id = models.ForeignKey(Exam, on_delete=models.RESTRICT, related_name="examClient")
     user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="userClients")
     docter_id = models.OneToOneField(Docter, on_delete=models.RESTRICT, related_name="docterClients")
@@ -57,7 +58,7 @@ class Client(User):
 
 
 # les donnees de la table Resultat des examens
-class Result(models.Model):
+class Result(BaseModel):
     exam = models.ForeignKey(
         Exam, on_delete=models.CASCADE, related_name="resultats"
     )
@@ -66,7 +67,7 @@ class Result(models.Model):
 
 
 # les donnees de la table commentaire du medecin a propos des resultat
-class Comment(models.Model):
+class Comment(BaseModel):
     result = models.ForeignKey(
         Result, on_delete=models.CASCADE, related_name="comments"
     )
@@ -77,7 +78,7 @@ class Comment(models.Model):
 
 
 # les donnees de la table Ordonnance
-class Ordonanc(models.Model):
+class Ordonanc(BaseModel):
     client = models.ForeignKey(
         Client, on_delete=models.CASCADE, related_name="ordonnance"
     )

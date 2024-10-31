@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "labo_medical.apps.medicalApp",
     "labo_medical.apps.api",
+    "labo_medical.apps.core",
     "rest_framework", 
     "rest_framework.authtoken",
     "oauth2_provider",
