@@ -8,13 +8,13 @@ from .forms import (
     Client_form,
     Comment_form,
     Examen_form,
-    Medecin_form,
+    Docter_form,
     MedecinLoginForm,
     Ordonnance_form,
     Resultat_form,
     UserForm,
 )
-from .models import Client, Comment, Examen, Medecin, Ordonnance, Resultat
+from .models import Docter, Client, Comment, Exam, Ordonanc, Result
 
 # Create your views here.
 
@@ -68,15 +68,15 @@ def homme_page(request):
 def medecin_Register(request):
 
     if request.method == "POST":
-        med_form = Medecin_form(request.POST)
+        med_form = Docter_form(request.POST)
 
         if med_form.is_valid():
             med_form.save()
-            med_form = Medecin_form()
+            med_form = Docter_form()
         else:
             print(med_form.errors)
     else:
-        med_form = Medecin_form()
+        med_form = Docter_form()
 
     return render(request, "laboratoire/registreMedecin.html", {"med": med_form})
 
@@ -90,7 +90,7 @@ def medecin_login(request):
             email = form.cleaned_data["email"]
             try:
                 # Vérifiez si le médecin existe avec le nom et l'email
-                medecin = Medecin.objects.get(names=names, email=email)
+                medecin = Docter.objects.get(names=names, email=email)
 
                 # Ici, vous pouvez éventuellement stocker l'ID du médecin dans la session
                 request.session["medecin_id"] = medecin.id
@@ -98,7 +98,7 @@ def medecin_login(request):
                 return redirect("client_Register")
 
             # Erreur si le médecin n'est pas trouvé
-            except Medecin.DoesNotExist:
+            except Docter.DoesNotExist:
 
                 form.add_error(None, "Nom d'utilisateur ou email invalide.")
     else:
@@ -233,22 +233,22 @@ def comment_data(request):
 
 
 def examen_data(request):
-    examen = Examen.objects.all()
+    examen = Exam.objects.all()
     return render(request, "pages_content/examen.html", {"examen": examen})
 
 
 def medecin_data(request):
-    medecin = Medecin.objects.all()
+    medecin = Docter.objects.all()
     return render(request, "pages_content/medecin.html", {"medecin": medecin})
 
 
 def ordonnance_data(request):
-    ordonnance = Ordonnance.objects.all()
+    ordonnance = Ordonanc.objects.all()
     return render(request, "pages_content/ordonnance.html", {"ordonnance": ordonnance})
 
 
 def result_data(request):
-    result = Resultat.objects.all()
+    result = Result.objects.all()
     return render(request, "pages_content/result.html", {"result": result})
 
 
@@ -272,20 +272,20 @@ def delete_data_comment(request, id):
 
 def delete_data_examen(request, id):
     if request.method == "POST":
-        delet = Examen.objects.get(pk=id)
+        delet = Exam.objects.get(pk=id)
         delet.delete()
         return HttpResponseRedirect("/examen_data/")
 
 
 def delete_data_ordonn(request, id):
     if request.method == "POST":
-        delet = Ordonnance.objects.get(pk=id)
+        delet = Ordonanc.objects.get(pk=id)
         delet.delete()
         return HttpResponseRedirect("/ordonnance_data/")
 
 
 def delete_data_result(request, id):
     if request.method == "POST":
-        delet = Resultat.objects.get(pk=id)
+        delet = Result.objects.get(pk=id)
         delet.delete()
         return HttpResponseRedirect("/result_data/")

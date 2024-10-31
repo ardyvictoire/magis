@@ -20,19 +20,24 @@ from django.urls import path
 
 
 from labo_medical.apps.medicalApp import views
-from labo_medical.apps.api.views import UserLogin, UserRegister
-# from labo_medical.apps.api.views import UserRegister
+from labo_medical.apps.api.views import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    
     # les urls pour Medecin Directeur
     path("inscription_admin", views.inscription_MD, name="inscription_MD"),
     path("conexion_admin", views.connexion_MD, name="connexion_MD"),
     path("deconnexion", views.deconnexion, name="deconnexion"),
     path("homme_page", views.homme_page, name="homme_page"),
+
+
     # les urls Laboratoire
     path("", views.medecin_login, name="medecin_login"),
     path("Logout/medecin/", views.medecin_logout, name="medecin_logout"),
+
+
     # Les urls pour l'enregistrement des examens
     path("Medecin_Register/", views.medecin_Register, name="medecin_Register"),
     path("Client_Register/", views.client_Register, name="client_Register"),
@@ -73,5 +78,6 @@ urlpatterns = [
     ),
 
     # url for token_auth
-    path("registerToken/", UserRegister.as_view())
+    path("registerToken/", UserRegister.as_view()),
+    path("registeAndList/", SpecialityRegisterAndList.as_view()),
 ]
