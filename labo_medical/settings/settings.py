@@ -49,8 +49,15 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    ]
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication'
+    ],
+
+     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+     'DEFAULT_VERSION' : 'v1.0', 
+     'ALLOWID_VERSIONS' : {'v1.0', 'v1.1', 'v1.2', 'v1.3', 'v2.0'},
+     'VERSION_PARAM' : 'version',
+     
+
 }
 
 MIDDLEWARE = [

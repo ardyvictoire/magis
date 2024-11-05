@@ -76,7 +76,67 @@ class OrdonnancRegisterAndList(generics.ListCreateAPIView):
 
 
 
+# UPDATE AND DESTROY DATA
+
+# speciality detail
+class SpecialityRestrictUpdateDester(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Speciality.objects.all()
+    serializer_class = SpecialSerializer
+
+# docter datail
+class DocterRestrictupdateDestr(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Docter.objects.all()
+    serializer_class = DocterSerializer
+
+
+
+# client detail
+class ClientRestrictupdateDestr(generics.ListCreateAPIView):
+    queryset = Client.objects.all()
+    serializers_class = ClientSerializer
+
+# register client and  list
+class ExamRestrictupdateDestr(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Exam.objects.all()
+    serializers_class = ExamSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+# register client and list
+class ResultRestrictupdateDestr(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Result.objects.all()
+    serializers_class = resultSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+# register client and list
+class CommetRestrictupdateDestr(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Result.objects.all()
+    serializers_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+# register client and list
+class OrdonnancRestrictupdateDestr(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ordonanc.objects.all()
+    serializers_class = OrdonnancSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # DELETE DATA ON ALL MODELS
+
 # class SnippetPkDocter(APIView):
 #     def get_object(self, pk):
 #         try:
