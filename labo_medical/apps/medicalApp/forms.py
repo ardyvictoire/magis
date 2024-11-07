@@ -1,28 +1,34 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 
-from .models import Client, Comment, Exam, Docter, Ordonanc, Result, Speciality
+# from .models import Client, Comment, Exam, Docter, Ordonanc, Result, Speciality, 
+from .models import *
 
-# from django.core import validators
+class User_form(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['names', 'email', 'phone_numb', 'adress', 'birthday_date', 'password']
+        widgets = {
+            'names' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
+            'email' : forms.EmailInput(attrs={"class": "form-control", "autocomplete": "off"}),
+            'phone_numb' : forms.NumberInput(attrs={"class": "form-control", "autocomplete": "off"}),
+            'adress' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
+            'birthday_date' : forms.DateInput(attrs={"class": "form-control", "autocomplete": "off"}), 
+            'password' : forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
+        }
 
-
-# form pour creat Medecin Directeur
-class UserForm(UserCreationForm):
-    password1 = forms.CharField(
-        label="Password",
-        strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+class UserLoginForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            {"class": "form-control", "autocomplete": "off"}
+        )
     )
 
-    password2 = forms.CharField(
-        label="Password Conf.",
-        strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "autocomplete": "off"}
+        )
     )
-
-    class Meta(UserCreationForm.Meta):
-        fields = UserCreationForm.Meta.fields + ("password1", "password2")
-
 
 # end log Medecin Directeur
 
@@ -81,16 +87,18 @@ class Docter_form(forms.ModelForm):
 
 # Login Medecin
 class MedecinLoginForm(forms.Form):
-    names = forms.CharField(max_length=50)
-    email = forms.EmailField()
-    widgets = {
-        "names": forms.TextInput(
+    names = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(
             attrs={"class": "form-control", "autocomplete": "off"}
-        ),
-        "email": forms.EmailInput(
+        )
+    )
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(
             attrs={"class": "form-control", "autocomplete": "off"}
-        ),
-    }
+        )
+    )
 
 
 # cliet form

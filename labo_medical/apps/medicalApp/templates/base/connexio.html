@@ -4,9 +4,15 @@
 
     <form method="post">
         {% csrf_token %}
+
+        <br>
+        <h1>login Laboratory</h1>
+        <br>
+
         {{ form.as_p }}
 
-        <button type="submit" class="btn btn-primary">Se connecter</button>
+
+        <button type="submit" class="btn btn-primary">Login</button>
 
         <br><br>
         <p class="alrt alert-secondary">Tu na pas un compte <a href="{% url 'medecin_Register' %}" class="alert-primary">S'inscrire</a></p>

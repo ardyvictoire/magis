@@ -27,8 +27,8 @@ urlpatterns = [
 
     
     # les urls pour Medecin Directeur
-    path("inscription_admin", views.inscription_MD, name="inscription_MD"),
-    path("conexion_admin", views.connexion_MD, name="connexion_MD"),
+    path("inscription_admin", views.User_Inscription, name="inscription_MD"),
+    path("conexion_admin", views.login_user, name="connexion_MD"),
     path("deconnexion", views.deconnexion, name="deconnexion"),
     path("homme_page", views.homme_page, name="homme_page"),
 

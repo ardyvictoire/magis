@@ -3,51 +3,55 @@ from django.contrib.auth import authenticate, login, logout
 
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, redirect, render
+from .forms import *
 
-from .forms import (
-    Client_form,
-    Comment_form,
-    Examen_form,
-    Docter_form,
-    MedecinLoginForm,
-    Ordonnance_form,
-    Resultat_form,
-    UserForm,
-)
-from .models import Docter, Client, Comment, Exam, Ordonanc, Result
+from .models import *
 
 # Create your views here.
-
-
-# register Medecin directer
-def inscription_MD(request):
-    if request.method == "POST":
-        form = UserForm(request.POST)
+def User_Inscription(request):
+    if request.method == 'POST':
+        form = User_form(request.POST)
 
         if form.is_valid():
             form.save()
-            return redirect("connexion_MD")
-            form = UserForm()
-    else:
-        form = UserForm()
+            form = User_form()
 
-    return render(request, "medecDirecteur/inscription.html", {"form": form})
-
-
-# connect Medecin directer
-def connexion_MD(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect("homme_page")
+            return redirect('Medecin_Register')
         else:
-            messages.error(request, "nom ou mot de pass sont incorecte")
-    return render(request, "medecDirecteur/connexion.html")
+            print(User_form.errors)
+    
+    else:
+        form = User_form()
+    
+    return render(request, "medecDirecteur/inscription.html", {"form": form})
+            
+
+def login_user(request):
+    
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+
+        if form.is_valid():
+
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+
+            try:
+                md = User.objects.get(email=email, password=password)
+
+                request.session["user_id"] = md.id
+                return redirect("Medecin_Register")
+            
+            except:
+                messages.error(request, "Email ou Mot de pass ne pas correcte ...")
+                form = UserLoginForm()
+        else:
+            messages.error(request, "Email ou Mot de pass ne pas correcte ...")
+            form = UserLoginForm()
+    else:
+        form = UserLoginForm()
+
+    return render(request, "medecDirecteur/connexion.html", {"form" : form})
 
 
 # deconnect Medecin directer

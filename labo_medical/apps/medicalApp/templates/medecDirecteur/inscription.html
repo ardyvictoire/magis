@@ -1,19 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="{% url 'inscription_MD' %}" method="post">
-        {% csrf_token %}
 
-        <h1>Inscription</h1>
+{% extends '../base/base.html' %}
 
-        {{form.as_p}}
+{% block content %}
+<form action="{% url 'inscription_MD' %}" method="post" class="">
+    {% csrf_token %}
 
-        <button type="submit">Envoyey</button>
-    </form>
-</body>
-</html>
+    <br>
+    <h1>Sign up Docter</h1>
+    <br>
+
+    {{form.as_p}}
+
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+
+    <br><br>
+
+    <p>Tu as un compte ? <a href="{% url 'connexion_MD'%}">S'eregistrer</a></p>
+{% endblock content %}
+
+</form>
+
