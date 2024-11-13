@@ -15,7 +15,7 @@ class BaseModelManager(models.Manager):
 
 
 class BaseModel(models.Model):
-    created_at = models.DateField(auto_created=True)
+    created_at = models.DateField(auto_now_add=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     udapte_at = models.DateField(auto_now_add=True)
     delete_at = models.DateField(blank=True, null=True)

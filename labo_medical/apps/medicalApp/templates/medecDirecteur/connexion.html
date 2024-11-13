@@ -1,7 +1,7 @@
 {% extends '../base/base.html' %}
 
 {% block content %}
-<form action="{% url 'connexion_MD' %}" method="post">
+<form action="{% url 'login_DirecDocter' %}" method="post">
     {% csrf_token %}
 
     <br>
@@ -23,7 +23,7 @@
 
     <br><br>
 
-    <p>Tu na pas un compte ? <a href="{% url 'inscription_MD'%}">S'eregistrer</a></p>
+    <p>Tu na pas un compte ? <a href="{% url 'user_inscription'%}">S'eregistrer</a></p>
 </form>
 
 {% endblock content %}

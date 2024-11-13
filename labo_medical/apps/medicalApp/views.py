@@ -4,28 +4,64 @@ from django.contrib.auth import authenticate, login, logout
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, redirect, render
 from .forms import *
+from .forms import Directer_Docter_form
 
 from .models import *
 
 # Create your views here.
-def User_Inscription(request):
+
+
+# user(genaraly data for )
+
+# Docter Directer
+def Docter_Direct_Inscription(request):
+
     if request.method == 'POST':
-        form = User_form(request.POST)
+        
+        dirDocter = User_form(request.POST)
+        form = Directer_Docter_form(request.POST)
 
-        if form.is_valid():
-            form.save()
-            form = User_form()
+        if dirDocter.is_valid() and form.is_valid():
 
-            return redirect('Medecin_Register')
+            userName = dirDocter.cleaned_data['UserName']
+            email = dirDocter.cleaned_data['email']
+            phone_numb = dirDocter.cleaned_data['phone_numb']
+            adress = dirDocter.cleaned_data['adress']
+            birthday_date = dirDocter.cleaned_data['birthday_date']
+            gender = dirDocter.cleaned_data['gender']
+            role = "superUser"
+
+            password = form.cleaned_data['password']
+            user = userName
+
+            docter_user = User.objects.create(
+                userName = userName, 
+                email = email, 
+                phone_numb = phone_numb, 
+                adress = adress, 
+                birthday_date = birthday_date, 
+                gender = gender,
+                role = role
+            )
+
+            docter = Director_Docter.objects.create(
+                password = password, 
+                userName = user, 
+            )
+
+            return redirect('login_DirecDocter')
+
         else:
-            print(User_form.errors)
-    
+            messages.error(request, "The datas is not a save ...")
+            dirDocter = User_form()
+            form = Directer_Docter_form()
     else:
-        form = User_form()
-    
-    return render(request, "medecDirecteur/inscription.html", {"form": form})
-            
+        dirDocter = User_form()
+        form = Directer_Docter_form()
 
+    return render(request, "medecDirecteur/inscription.html", {"docter": dirDocter, "form": form})
+            
+# directer docter login
 def login_user(request):
     
     if request.method == 'POST':
@@ -37,14 +73,14 @@ def login_user(request):
             password = form.cleaned_data['password']
 
             try:
-                md = User.objects.get(email=email, password=password)
-
-                request.session["user_id"] = md.id
-                return redirect("Medecin_Register")
+                user = User.objects.get(email=email, password=password)
+                login(request, user)
+                return redirect("login_DirecDocter")
             
             except:
                 messages.error(request, "Email ou Mot de pass ne pas correcte ...")
-                form = UserLoginForm()
+                form = UserLoginForm() 
+
         else:
             messages.error(request, "Email ou Mot de pass ne pas correcte ...")
             form = UserLoginForm()
@@ -57,7 +93,7 @@ def login_user(request):
 # deconnect Medecin directer
 def deconnexion(request):
     logout(request)
-    return redirect("connexion_MD")
+    return redirect("deconnexion")
 
 
 # HOMME PAGE FOR MD
@@ -92,6 +128,7 @@ def medecin_login(request):
         if form.is_valid():
             names = form.cleaned_data["names"]
             email = form.cleaned_data["email"]
+
             try:
                 # Vérifiez si le médecin existe avec le nom et l'email
                 medecin = Docter.objects.get(names=names, email=email)
@@ -113,13 +150,11 @@ def medecin_login(request):
 
 # deconnexion de Medecin Laboratory
 def medecin_logout(request):
+
     logout(request)
-    # if 'medecin_id' in request.session:
-    # del request.session['medecin_id']
+
     return redirect("medecin_login")
 
-
-# Enregistrement de clients
 
 
 def client_Register(request):

@@ -5,48 +5,47 @@ from labo_medical.apps.core.models import BaseModel
 
 
 # les donnees du medecin Directeur qui va enregistrer les laboratins
-class User(BaseModel, AbstractBaseUser):
-    names = models.TextField(max_length=60)
+class User(AbstractBaseUser, BaseModel):
+    GENDER_CHOISES = (
+        ('F', 'Feminin'),
+        ('M', 'Masculin')
+    )
+
+    userName = models.TextField(max_length=60)
     email = models.EmailField(max_length=90)
     phone_numb = models.CharField(max_length=23)
     adress = models.CharField(max_length=60)
     birthday_date = models.DateField()
-    password = models.TextField(max_length=255)
+    gender = models.CharField(max_length=15, choices=GENDER_CHOISES)
+    role = models.TextField(max_length=30)
 
-    USERNAME_FIELD = 'email'
 
     def __str__(self) :
-        return self.names
+        return self.userName
+    
 
-    groups = models.ManyToManyField(
-        Group,
-        related_name='custom_user_set',
-        blank=True,
-        help_text='The groups this user belongs to.'
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name='custom_user_permissions_set',  
-        blank=True,
-        help_text='Specific permissions for this user.'
-    )
+class Director_Docter(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="docter_as_user")
+    password = models.CharField(max_length=255)
+    
+
 
 # les donnees de la table MEDECIN
-
 class Speciality(BaseModel):
     name = models.TextField(max_length=80)
 
     def __str__(self) :
         return self.name
     
-class Docter(User, BaseModel):
+class Docter(models.Model):
+    password = models.TextField(max_length=255)
     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name="docterSpeciality")
     user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="doctersClients", null=True)
 
     def __str__(self) :
         return self.names
     
-    class Mata:
+    class Meta:
         verbose_name = "Docter"
 
 # les donnees de la table Examen(Test)
@@ -59,11 +58,11 @@ class Exam(BaseModel):
         return self.name_examen
 
 # les donnees de la table CLIENT(Patient)
-class Client(User, BaseModel):
+class Client(models.Model):
     examen_id = models.ForeignKey(Exam, on_delete=models.RESTRICT, related_name="examClient")
     user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="userClients", null=True)
-    docter_id = models.OneToOneField(Docter, on_delete=models.RESTRICT, related_name="docterClients", null=True)
-    password = None
+    docter_id = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docterClients", null=True)
+    # password = None
 
     class Meta:
         verbose_name = "Client"
@@ -86,7 +85,7 @@ class Comment(BaseModel):
         Result, on_delete=models.CASCADE, related_name="comments"
     )
     docter = models.ForeignKey(
-        Docter, on_delete=models.CASCADE, related_name="comments"
+        User, on_delete=models.CASCADE, related_name="comments"
     )
     comments = models.TextField()
 
@@ -94,8 +93,8 @@ class Comment(BaseModel):
 # les donnees de la table Ordonnance
 class Ordonanc(BaseModel):
     client = models.ForeignKey(
-        Client, on_delete=models.CASCADE, related_name="ordonnance"
+        User, on_delete=models.CASCADE, related_name="ordonnance_as_client"
     )
     docter = models.ForeignKey(
-        Docter, on_delete=models.CASCADE, related_name="ordonnance"
+        User, on_delete=models.CASCADE, related_name="ordonnance_as_docter"
     )

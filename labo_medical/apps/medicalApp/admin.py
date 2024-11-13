@@ -1,8 +1,14 @@
 from django.contrib import admin
 
-from .models import Client, Comment, Exam, Docter, Ordonanc, Result, Speciality
+# from .models import Client, Comment, Exam, Docter, Ordonanc, Result, Speciality
+from .models import *
 
 # Register your models here.
+
+# @admin.register(User)
+# class User_table(admin.ModelAdmin):
+#     list_display = ("id", "names", "email", "phone_numb", "adress", "birthday_date", "password", "created_at", "udapte_at", "delete_at")
+#     search_fields = ['names', 'email', 'speciality']
 
 # register Speciality for docter laborating
 @admin.register(Speciality)
@@ -11,16 +17,16 @@ class Speciality_table(admin.ModelAdmin):
     search_fields = ['name']
 
 # Register laborateurs
-@admin.register(Docter)
-class Docter_table(admin.ModelAdmin):
-    list_display = ("id", "names", "email", "phone_numb", "adress", "birthday_date", "speciality", "user", "password", "created_at", "udapte_at", "delete_at")
-    search_fields = ["names", "email"]
+# @admin.register(Docter)
+# class Docter_table(admin.ModelAdmin):
+#     list_display = ("id", "names", "email", "phone_numb", "adress", "birthday_date", "speciality", "user", "password", "created_at", "udapte_at", "delete_at")
+#     search_fields = ["names", "email"]
 
 # Register Clients
-@admin.register(Client)
-class Client_table(admin.ModelAdmin):
-    list_display = ("id", "names", "email", "phone_numb", "adress", "birthday_date", "examen_id", "user", "docter_id", "created_at", "udapte_at", "delete_at")
-    search_fields = ["names", "email"]
+# @admin.register(Client)
+# class Client_table(admin.ModelAdmin):
+#     list_display = ("id", "names", "email", "phone_numb", "adress", "birthday_date", "examen_id", "user", "docter_id", "created_at", "udapte_at", "delete_at")
+#     search_fields = ["names", "email"]
 
 
 # Register Examen (Test)

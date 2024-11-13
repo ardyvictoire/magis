@@ -3,19 +3,32 @@ from django import forms
 
 # from .models import Client, Comment, Exam, Docter, Ordonanc, Result, Speciality, 
 from .models import *
+from .models import Director_Docter
 
 class User_form(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['names', 'email', 'phone_numb', 'adress', 'birthday_date', 'password']
+        fields = ['userName', 'email', 'phone_numb', 'adress', 'birthday_date', 'gender']
         widgets = {
-            'names' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
+            'userName' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
             'email' : forms.EmailInput(attrs={"class": "form-control", "autocomplete": "off"}),
             'phone_numb' : forms.NumberInput(attrs={"class": "form-control", "autocomplete": "off"}),
             'adress' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
-            'birthday_date' : forms.DateInput(attrs={"class": "form-control", "autocomplete": "off"}), 
+            'birthday_date' : forms.DateInput(attrs={"class": "form-control", "autocomplete": "off"}),
+            'gender' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}) 
+        }
+
+class Directer_Docter_form(forms.ModelForm):
+
+    class Meta:
+        model = Director_Docter 
+        
+        fields = ['password']
+        widgets = {
             'password' : forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
         }
+
+
 
 class UserLoginForm(forms.Form):
     email = forms.EmailField(
@@ -46,42 +59,16 @@ class Specialys_form(forms.ModelForm):
             )
         }
 
+
 # form Medecin
 class Docter_form(forms.ModelForm):
     class Meta:
         model = Docter
-        # fields = ["first_name", "last_name", "email", "phone_numb", "adress", "birthday_date", "user", "speciality", "password"]
-        fields = ["names", "email", "phone_numb", "adress", "birthday_date", "user", "speciality"]
+        fields = ['speciality', 'password']
+        
         widgets = {
-            "names": forms.TextInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-
-
-            "email": forms.EmailInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-
-            "phone_numb": forms.NumberInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-            
-            "adress": forms.TextInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-
-            "birthday_date": forms.DateInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-            
-            "speciality": forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-
-            "user":forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-            
+            'speciality' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
+            'password' : forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
         }
 
 
@@ -106,41 +93,11 @@ class Client_form(forms.ModelForm):
     class Meta:
         model = Client
 
-        fields = ["names", "email", "phone_numb", "adress", "birthday_date", "user", "examen_id", "docter_id"]
-       
+        fields = ['examen_id', 'docter_id',]
         widgets = {
-            "names": forms.TextInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-
-            "email": forms.EmailInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-            "phone_numb": forms.NumberInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-            
-            "adress": forms.TextInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-            "birthday_date":forms.DateInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-
-            "examen_id": forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-            
-            "user":forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            ),
-
-            "docter_id":forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
-            )
-            
+            'examen_id' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}),
+            'docter_id' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}),  
         }
-
 
 # form Examen
 class Examen_form(forms.ModelForm):

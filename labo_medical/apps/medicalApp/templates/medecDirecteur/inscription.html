@@ -2,12 +2,14 @@
 {% extends '../base/base.html' %}
 
 {% block content %}
-<form action="{% url 'inscription_MD' %}" method="post" class="">
+<form action="{% url 'user_inscription' %}" method="post" class="">
     {% csrf_token %}
 
     <br>
     <h1>Sign up Docter</h1>
     <br>
+
+    {{docter.as_p}}
 
     {{form.as_p}}
 
@@ -15,7 +17,7 @@
 
     <br><br>
 
-    <p>Tu as un compte ? <a href="{% url 'connexion_MD'%}">S'eregistrer</a></p>
+    <p>Tu as un compte ? <a href="{% url 'login_DirecDocter'%}">S'eregistrer</a></p>
 {% endblock content %}
 
 </form>
