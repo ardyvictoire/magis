@@ -13,7 +13,11 @@
         </div>
 
         {% csrf_token %}
+
+        {{data_gene.as_p}}
         {{clien.as_p}}
+
+
 
         <button class="btn btn-success" type="submit">Envoyer</button>
     </form>

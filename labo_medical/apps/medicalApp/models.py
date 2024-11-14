@@ -38,12 +38,12 @@ class Speciality(BaseModel):
         return self.name
     
 class Docter(models.Model):
-    password = models.TextField(max_length=255)
     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name="docterSpeciality")
     user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="doctersClients", null=True)
+    password = models.TextField(max_length=255)
 
     def __str__(self) :
-        return self.names
+        return self.speciality
     
     class Meta:
         verbose_name = "Docter"
@@ -61,7 +61,7 @@ class Exam(BaseModel):
 class Client(models.Model):
     examen_id = models.ForeignKey(Exam, on_delete=models.RESTRICT, related_name="examClient")
     user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="userClients", null=True)
-    docter_id = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docterClients", null=True)
+    # docter_id = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docterClients", null=True)
     # password = None
 
     class Meta:

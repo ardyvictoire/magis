@@ -93,10 +93,10 @@ class Client_form(forms.ModelForm):
     class Meta:
         model = Client
 
-        fields = ['examen_id', 'docter_id',]
+        fields = ['examen_id']
         widgets = {
             'examen_id' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}),
-            'docter_id' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}),  
+            # 'docter_id' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}),  
         }
 
 # form Examen

@@ -108,18 +108,50 @@ def homme_page(request):
 def medecin_Register(request):
 
     if request.method == "POST":
+        data_gene = User_form(request.POST)
         med_form = Docter_form(request.POST)
 
-        if med_form.is_valid():
-            med_form.save()
+        if data_gene.is_valid() and med_form.is_valid():
+            userName = data_gene.cleaned_data['UserName']
+            email = data_gene.cleaned_data['email']
+            phone_numb = data_gene.cleaned_data['phone_numb']
+            adress = data_gene.cleaned_data['adress']
+            birthday_date = data_gene.cleaned_data['birthday_date']
+            gender = data_gene.cleaned_data['gender']
+            role = "laboratory"
+
+            speciality = med_form.cleaned_data['speciality']
+            user = userName
+            password = med_form.cleaned_data['password']
+
+            user_as_labor = User.objects.create(
+                userName=userName, 
+                email= email, 
+                phone_numb=phone_numb, 
+                adress=adress, 
+                birthday_date=birthday_date,
+                gender = gender,
+                role = role,
+            ) 
+
+            labor = Docter.objects.create(
+                speciality=speciality,
+                user=user,
+                password=password
+            )
+
+            data_gene = User_form()
             med_form = Docter_form()
+            return redirect()
         else:
-            print(med_form.errors)
+            messages.error(request, "data is invalid ....")
     else:
+        data_gene = User_form()
         med_form = Docter_form()
+    return render(request, "laboratoire/registreMedecin.html", {'data_gen' : data_gene, "med": med_form})
 
-    return render(request, "laboratoire/registreMedecin.html", {"med": med_form})
 
+    
 
 # connexion de medecin laboratoire
 def medecin_login(request):
@@ -159,21 +191,47 @@ def medecin_logout(request):
 
 def client_Register(request):
     if request.method == "POST":
+
+        data_gene = User_form(request.POST)
         client_send = Client_form(request.POST)
 
-        if client_send.is_valid():
-            client_send.save()
+        if data_gene.is_valid() and client_send.is_valid():
 
-            client_send = Client_form()
+            userName = data_gene.cleaned_data['userName']
+            email = data_gene.cleaned_data['email']
+            phone_numb = data_gene.cleaned_data['phone_numb']
+            adress = data_gene.cleaned_data['adress']
+            gender = data_gene.cleaned_data['gender']
+            role = data_gene.cleaned_data['role']
+
+            examen_id = client_send.cleaned_data['examen_id']
+            user = userName
+
+            user_as_clien = User.objects.create(
+                userName=userName, 
+                email = email, 
+                phone_numb = phone_numb, 
+                adress = adress, 
+                gender = gender, 
+                role = role
+            )
+
+            client_save = Client.objects.create(
+                examen_id = examen_id, 
+                user = userName,
+            )
 
             return redirect("client_data")
-
+        
         else:
-            print(client_send.errors)
+            data_gene = User_form()
+            client_send = Client_form()
+            messages.error(request, "Data is not valid ...")
     else:
+        data_gene = User_form()
         client_send = Client_form()
 
-    return render(request, "laboratoire/registerClients.html", {"clien": client_send})
+    return render(request, "laboratoire/registerClients.html", {'data_gene' : data_gene, "clien": client_send})
 
 
 # Enregister L'examen
@@ -181,6 +239,7 @@ def client_Register(request):
 
 def examen_register(request):
     if request.method == "POST":
+
         ex_form = Examen_form(request.POST)
 
         if ex_form.is_valid():
