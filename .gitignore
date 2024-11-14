@@ -1,3 +1,4 @@
+ENV
 __pycache__
-*/.sqlite3
-TestMagis/labo_medica/settings/localsettings.py
+db.sqlite3
+localsettings.py
