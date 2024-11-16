@@ -25,11 +25,21 @@ from labo_medical.apps.api.views import *
 urlpatterns = [
     path("admin/", admin.site.urls),
 
+    path('user_content', views.all_users, name = "user_content"),
+
+    path('test/', views.test, name = 'test'),
+
+
+    path('send_client_exist/<int:pk>', views.send_client_exist, name = 'send_client_exist'),
+
     
+    path('speciality', views.speciality, name = 'speciality'),
+
     # les urls pour Medecin Directeur
-    path("inscription_admin", views.Docter_Direct_Inscription, name="user_inscription"),
+    path("inscription_admin", views.Docter_Direct_Inscription,   name="user_inscription"),
     path("conexion_admin", views.login_user, name="login_DirecDocter"),
     path("deconnexion", views.deconnexion, name="deconnexion"),
+    path("direct_docter", views.direct_docter_data, name = "direct_docter"),
     path("homme_page", views.homme_page, name="homme_page"),
 
 

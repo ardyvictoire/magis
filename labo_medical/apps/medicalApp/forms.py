@@ -10,25 +10,13 @@ class User_form(forms.ModelForm):
         model = User
         fields = ['userName', 'email', 'phone_numb', 'adress', 'birthday_date', 'gender']
         widgets = {
-            'userName' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
-            'email' : forms.EmailInput(attrs={"class": "form-control", "autocomplete": "off"}),
-            'phone_numb' : forms.NumberInput(attrs={"class": "form-control", "autocomplete": "off"}),
-            'adress' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
-            'birthday_date' : forms.DateInput(attrs={"class": "form-control", "autocomplete": "off"}),
-            'gender' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}) 
+            'userName' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}),
+            'email' : forms.EmailInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "E mail", "autocomplete": "off"}),
+            'phone_numb' : forms.NumberInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Phone Number", "autocomplete": "off"}),
+            'adress' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Adress", "autocomplete": "off"}),
+            'birthday_date' : forms.DateInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Birthday Date", "autocomplete": "off"}),
+            'gender' : forms.Select(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Gender", "autocomplete": "off"}),
         }
-
-class Directer_Docter_form(forms.ModelForm):
-
-    class Meta:
-        model = Director_Docter 
-        
-        fields = ['password']
-        widgets = {
-            'password' : forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
-        }
-
-
 
 class UserLoginForm(forms.Form):
     email = forms.EmailField(
@@ -38,8 +26,17 @@ class UserLoginForm(forms.Form):
     )
 
     password = forms.CharField(
+        widget= forms.PasswordInput(
+            attrs={"class": "form-control border-1 border-primary", "placeholder" : "Password", "autocomplete": "off"}
+        )
+    )
+
+class Directer_Docter_form(User_form):
+    
+
+    password = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "autocomplete": "off"}
+            attrs={"class": "form-control border-1 border-primary", "placeholder" : "Password", "autocomplete": "off"}
         )
     )
 
@@ -55,21 +52,28 @@ class Specialys_form(forms.ModelForm):
         fields = ['name']
         widgets ={
             "name" : forms.TextInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Name", "autocomplete": "off"}
             )
         }
 
 
 # form Medecin
-class Docter_form(forms.ModelForm):
-    class Meta:
-        model = Docter
-        fields = ['speciality', 'password']
-        
-        widgets = {
-            'speciality' : forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
-            'password' : forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
-        }
+class Docter_form(User_form):
+        speciality = forms.ModelChoiceField(
+
+            queryset=Speciality.objects.all(),
+
+            widget = forms.Select(
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Speciality", "autocomplete": "off"}
+            )
+        )
+
+        password = forms.CharField(
+            widget = forms.PasswordInput(
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Password", "autocomplete": "off"}
+            )
+        )
+    
 
 
 # Login Medecin
@@ -77,27 +81,43 @@ class MedecinLoginForm(forms.Form):
     names = forms.CharField(
         max_length=50,
         widget=forms.TextInput(
-            attrs={"class": "form-control", "autocomplete": "off"}
+            attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}
         )
     )
 
     email = forms.EmailField(
         widget=forms.EmailInput(
-            attrs={"class": "form-control", "autocomplete": "off"}
+            {"class": "form-control border-1 border-primary", "placeholder" : "Email", "autocomplete": "off"}
         )
     )
 
 
 # cliet form
-class Client_form(forms.ModelForm):
+class Client_form(User_form):
+        
+    examen_id = forms.ModelChoiceField(
+        queryset = Exam.objects.all(),
+        widget=forms.Select(
+            attrs={"class": "form-control border-1 border-primary", "placeholder" : "Examen", "autocomplete": "off"}
+        )
+    )
+
+# formulaire de l'existance d'un utilisateur
+class Client_exist(forms.ModelForm):
+    
     class Meta:
         model = Client
 
-        fields = ['examen_id']
+        fields = ["examen_id", ]
+        
         widgets = {
-            'examen_id' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}),
-            # 'docter_id' : forms.Select(attrs={"class": "form-control", "autocomplete": "off"}),  
+            "examen_id" : forms.Select(
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Exam", "autocomplete": "off"}
+            ) 
         }
+        
+
+       
 
 # form Examen
 class Examen_form(forms.ModelForm):
@@ -106,13 +126,13 @@ class Examen_form(forms.ModelForm):
         fields = ["name_examen", "prix", "description"]
         widgets = {
             "name_examen": forms.TextInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Exam", "autocomplete": "off"}
             ),
             "prix": forms.NumberInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Prix", "autocomplete": "off"}
             ),
             "description": forms.Textarea(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Description", "autocomplete": "off"}
             ),
         }
 
@@ -124,13 +144,13 @@ class Resultat_form(forms.ModelForm):
         fields = ["exam", "result", "result_creat_at"]
         widgets = {
             "exam": forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Exam", "autocomplete": "off"}
             ),
             "result": forms.TextInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Result", "autocomplete": "off"}
             ),
             "result_creat_at": forms.DateInput(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Creat at", "autocomplete": "off"}
             ),
         }
 
@@ -142,13 +162,13 @@ class Comment_form(forms.ModelForm):
         fields = ["result", "docter", "comments"]
         widgets = {
             "result": forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Result", "autocomplete": "off"}
             ),
             "docter": forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Docter", "autocomplete": "off"}
             ),
             "comments": forms.Textarea(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Comment", "autocomplete": "off"}
             ),
         }
 
@@ -160,9 +180,9 @@ class Ordonnance_form(forms.ModelForm):
         fields = ["client", "docter"]
         widgets = {
             "client": forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Client", "autocomplete": "off"}
             ),
             "docter": forms.Select(
-                attrs={"class": "form-control", "autocomplete": "off"}
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Docter", "autocomplete": "off"}
             ),
         }

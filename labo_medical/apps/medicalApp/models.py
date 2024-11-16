@@ -11,18 +11,20 @@ class User(AbstractBaseUser, BaseModel):
         ('M', 'Masculin')
     )
 
-    userName = models.TextField(max_length=60)
-    email = models.EmailField(max_length=90)
-    phone_numb = models.CharField(max_length=23)
+    userName = models.TextField(max_length=60, unique=True)
+    email = models.EmailField(max_length=90, unique=True)
+    phone_numb = models.CharField(max_length=23, unique=True)
     adress = models.CharField(max_length=60)
     birthday_date = models.DateField()
     gender = models.CharField(max_length=15, choices=GENDER_CHOISES)
     role = models.TextField(max_length=30)
 
+    USERNAME_FIELD = 'userName'
+
 
     def __str__(self) :
         return self.userName
-    
+  
 
 class Director_Docter(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="docter_as_user")
@@ -43,7 +45,7 @@ class Docter(models.Model):
     password = models.TextField(max_length=255)
 
     def __str__(self) :
-        return self.speciality
+        return f"{self.user.userName} Docteur"
     
     class Meta:
         verbose_name = "Docter"
@@ -61,8 +63,12 @@ class Exam(BaseModel):
 class Client(models.Model):
     examen_id = models.ForeignKey(Exam, on_delete=models.RESTRICT, related_name="examClient")
     user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="userClients", null=True)
+    
     # docter_id = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docterClients", null=True)
     # password = None
+
+    def __str__(self) :
+        return f"{self.user.userName} Client"
 
     class Meta:
         verbose_name = "Client"
@@ -72,10 +78,17 @@ class Client(models.Model):
 
 # les donnees de la table Resultat des examens
 class Result(BaseModel):
+    STATE_CHOISES = (
+        ('Positive', 'Positive'),
+        ('Negative', 'Negative'),
+        ('Normal', 'Normal'),
+        ('No Result', 'No Result')
+    )
     exam = models.ForeignKey(
         Exam, on_delete=models.CASCADE, related_name="resultats"
     )
     result = models.TextField()
+    # etat = models.CharField(max_length=15, choices=STATE_CHOISES)
     result_creat_at = models.DateField()
 
 

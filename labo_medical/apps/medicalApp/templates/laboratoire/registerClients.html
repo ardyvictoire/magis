@@ -1,25 +1,25 @@
 {% extends '../base/base.html' %}
 
+<!-- <title>Laboratoire Medicale || Register Client</title> -->
 {% block content %}
 
-    <form action="" method="post">
-        <div>
-            <a href="{% url 'medecin_logout' %}" class="btn btn-primary">Deconnexion</a>
+    <div class="" style="width: 100%; display: flex;  align-items: center; justify-content: center;"></div>
+        <div class="border border-4 border-info rounded " style="width: 35rem; padding: 1.5rem 3rem; ">
+            <form action="" method="post">
+
+                <div>
+                    <h3 class="text-primary my-3">Enregister Client</h3>
+                </div>
+
+                {% csrf_token %}
+
+                {{data_gene.as_p}}
+                {{clien.as_p}}
+
+
+
+                <button class="btn btn-info text-white" type="submit">Envoyer</button>
+            </form>
         </div>
-        <br>
-
-        <div>
-            <h3 class="text-primary my-3">Enregister Client</h3>
-        </div>
-
-        {% csrf_token %}
-
-        {{data_gene.as_p}}
-        {{clien.as_p}}
-
-
-
-        <button class="btn btn-success" type="submit">Envoyer</button>
-    </form>
-
+    </div>
 {% endblock content %}

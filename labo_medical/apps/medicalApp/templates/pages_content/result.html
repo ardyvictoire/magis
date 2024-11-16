@@ -1,51 +1,289 @@
-{% extends '../base/base.html' %}
+{% extends '../base/baseContent.html' %}
+
+{% block navbar %}
+
+    <!-- NAV BARA CONTENT -->
+<ul class="nav">
+              
+    <li class="nav-item navbar-brand-mini-wrapper">
+        <a class="nav-link navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+    </li>
+  
+    <br><br>
+
+    <li class="nav-item nav-category"><span class="nav-link">DASHBOARD</span></li>
+ 
+    <li class="nav-item">
+        <a class="nav-link" href="index.html">
+            <span class="menu-title">Dashboard</span>
+            <i class="icon-screen-desktop menu-icon"></i>
+        </a>
+    </li>
+
+  
+    <li class="nav-item nav-category"><span class="nav-link">CONTENT</span></li>
+  
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Directer Docter</span>
+            <i class="icon-layers menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic">
+
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Sign up</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Signin</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Contents</a></li>
+        </ul>
+
+        </div>
+    </li>
+  
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <span class="menu-title">Laboratin</span>
+            <i class="icon-globe menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="icons">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Save</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">View</a></li>
+            </ul>
+        </div>
+
+    </li>
+
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
+        <span class="menu-title">Clients (Patient)</span>
+        <i class="icon-book-open menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="forms">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/forms/basic_elements.html">Save Patient</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/forms/basic_elements.html">view Patient</a></li>
+        </ul>
+        </div>
+    </li>
+
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+        <span class="menu-title">Specialty</span>
+        <i class="icon-disc menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="auth">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Save </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> View </a></li>
+        </ul>
+        </div>
+
+
+    </li>
+
+
+    <li class="nav-item nav-category"><span class="nav-link">Laboratory Activity</span></li>
+
+
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <span class="menu-title">Examen</span>
+            <i class="icon-disc menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Save </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> View </a></li>
+            </ul>
+        </div>
+
+
+    </li>
+  
+  <li class="nav-item nav-category"><span class="nav-link">Help</span></li>
+  <!-- <li class="nav-item">
+    <a class="nav-link" href="../../docs/documentation.html" target="_blank">
+      <span class="menu-title">Documentation</span>
+      <i class="icon-folder-alt menu-icon"></i>
+    </a>
+  </li> -->
+
+</ul>
+
+{% endblock navbar%}
+
 
 {% block content %}
 
-     <!-- Utilisateur -->
-    <div class="">
+<!-- Count -->
+{% if results %}               
+<div class="row quick-action-toolbar">
+  
+    <div class="col-md-12 grid-margin">
 
-        <div>
-            <a href="{% url 'ordonnance_register' %}" class="btn btn-success">Add Ordonnance</a>
-            <a href="{% url 'medecin_logout' %}" class="btn btn-primary">Deconnexion</a>
+        <div class="card">
+            
+            <div class="card-header d-block d-md-flex">
+              <h5 class="mb-0">Count</h5>
+              <p class="ms-auto mb-0">Results for clients<i class="icon-bulb"></i></p>
+            </div>
+
+            <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
+              <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+                <button type="button" class="btn px-0"> <i class="icon-user me-2"></i>Result Positive</button>
+              </div>
+
+              <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+                <button type="button" class="btn px-0"><i class="icon-docs me-2"></i> Result Negative </button>
+              </div>
+
+              <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+                <button type="button" class="btn px-0"><i class="icon-folder me-2"></i> Result Way </button>
+              </div>
+
+              <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+                <button type="button" class="btn px-0"><i class="icon-book-open me-2"></i>Result No Find</button>
+              </div>
+
+            </div>
+
         </div>
-        <br>
 
-        <h3 class="alert alert-success">Les Resultat</h3>
-        {% if result %}
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">id_examen</th>
-                <th scope="col">resultat</th>
-                <th scope="col">date_resultat</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-
-            {% for results in result %}
-            <tbody>
-            <tr>
-                <th scope="row">{{results.id}}</th>
-                <td>{{results.id_examen }}</td>
-                <td>{{results.resultat}}</td>
-                <td>{{results.date_resultat}}</td>
-                <td class="flex">
-                    <a href="" class="btn btn-warning">Mofier</a>
-                    <form action="{% url 'delete_data_result' results.id %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn btn-danger" type="submit">Supprimer</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-            {% endfor %}
-        </table>
-
-    {% else %}
-    <h4 class="alert alert-danger"></h4>
-    {% endif %}
     </div>
 
+</div>
+{% endif %}
+
+
+
+<!-- Table of users -->
+{% if results %}
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+
+            <div class="d-sm-flex align-items-center mb-4">
+                <h4 class="card-title mb-sm-0">Result</h4>
+                <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Patients</a>
+            </div>
+
+            <!-- table -->
+                <table class="table table-hover">
+                <thead>
+                    <tr class="font-weight-medium">
+                        <th scope="col">#</th>
+                        <th scope="col">Exam</th>
+                        <th scope="col">Result</th>
+                        <th scope="col">Etat</th>
+                        <th scope="col">created_at</th>
+                        <th scope="col">Action</th>
+                        <!-- <th scope="col">Action</th> -->
+                    </tr>
+                </thead>
+    
+                
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <th scope="row">{{result.id}}</th>
+                        <td>{{result.exam}}</td>
+                        <td>{{result.result}}</td>
+                        <!-- <td>{{result.etat}}</td> -->
+                        <td>{{result.created_at}}</td>
+                        <td>
+                            <a href="">
+                                <form action="" method="get">
+                                    <button class="btn btn-primary px-2">Add Service</button>
+                                </form>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+
+            <!-- </div> -->
+            <div class="d-flex mt-4 flex-wrap align-items-center">
+                <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p>
+
+                <nav class="ms-auto">
+                <ul class="pagination separated pagination-info mb-sm-0">
+                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                </ul>
+                </nav>
+
+            </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+</div>
+{% else %}
+<p class="alert alert-primary">There are no Result</p>
+{% endif %}
+
+    
+
 {% endblock content %}
+
+<!-- Utilisateur -->
+     <div class="">
+ 
+         <div>
+             <a href="{% url 'ordonnance_register' %}" class="btn btn-success">Add Ordonnance</a>
+             <a href="{% url 'medecin_logout' %}" class="btn btn-primary">Deconnexion</a>
+         </div>
+         <br>
+ 
+         <h3 class="alert alert-success">Les Resultat</h3>
+         {% if result %}
+         <table class="table table-hover">
+             <thead>
+             <tr>
+                 <th scope="col">#</th>
+                 <th scope="col">id_examen</th>
+                 <th scope="col">resultat</th>
+                 <th scope="col">date_resultat</th>
+                 <th scope="col">Action</th>
+             </tr>
+             </thead>
+ 
+             {% for results in result %}
+             <tbody>
+             <tr>
+                 <th scope="row">{{results.id}}</th>
+                 <td>{{results.id_examen }}</td>
+                 <td>{{results.resultat}}</td>
+                 <td>{{results.date_resultat}}</td>
+                 <td class="flex">
+                     <a href="" class="btn btn-warning">Mofier</a>
+                     <form action="{% url 'delete_data_result' results.id %}" method="post">
+                         {% csrf_token %}
+                         <button class="btn btn-danger" type="submit">Supprimer</button>
+                     </form>
+                 </td>
+             </tr>
+             </tbody>
+             {% endfor %}
+         </table>
+ 
+     {% else %}
+     <h4 class="alert alert-danger"></h4>
+     {% endif %}
+     </div>
