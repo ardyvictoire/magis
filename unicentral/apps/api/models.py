@@ -23,8 +23,7 @@ class Cycle(BaseModel):
 
 
 class Faculty(BaseModel):
-    cycle = models.ForeignKey(Cycle, 
-                on_delete=models.CASCADE)
+    cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE)
     faculty_name = models.CharField(max_length=100)
 
     # d'autre champ peuvent etre necessaire ici
@@ -34,7 +33,7 @@ class Faculty(BaseModel):
 
 
 class Departement(BaseModel):
-    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, related_name='departement')
     departement_name = models.CharField(max_length=100)
 
     # d'autre champ peuvent etre necessaire ici

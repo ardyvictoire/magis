@@ -6,8 +6,7 @@ from .models import (University, Cycle, Faculty, Candidate,
 
 
 class UniversityAdmin(admin.ModelAdmin):
-    list_display = ('id','name','adress','province','description',
-                    'image','link','created_by')
+    list_display = ('id','name','adress','province','description','created_by')
 
 class CycleAdmin(admin.ModelAdmin):
     list_display = ('id','name','university','created_by')

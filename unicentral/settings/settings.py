@@ -46,9 +46,17 @@ INSTALLED_APPS = [
     "unicentral.apps.auth_user",
     "unicentral.apps.core",
     "unicentral.apps.api",
+    # "django-filter",
 ]
 
-MIDDLEWARE = [
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'oauth2_provider.contrib.rest_framework.OAuth2Authentication'
+#     ],
+     
+# }
+
+MIDDLEWARE = [  
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",

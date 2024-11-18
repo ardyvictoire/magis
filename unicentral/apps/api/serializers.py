@@ -25,16 +25,19 @@ class CycleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class FaccultySerializer(serializers.ModelSerializer):
+class FacultySerializer(serializers.ModelSerializer):
     class Meta:
         model = Faculty
         fields = '__all__'
 
 
-class DepartementSerializer(serializers.ModelSerializer):
+class DepartmentSerializer(serializers.ModelSerializer):
+
+    faculty = FacultySerializer()
+
     class Meta:
         model = Departement
-        fields = '__all__'
+        fields = ['id','created_by','departement_name','faculty']
 
 
 class NationnalitySerializer(serializers.ModelSerializer):
@@ -47,8 +50,8 @@ class CandidateSerializer(serializers.ModelSerializer):
 
     university = UniversitySerializer(many=True)
     cycle = CycleSerializer(many=True)
-    faculty = FaccultySerializer(many=True)
-    departement = DepartementSerializer(many=True)
+    faculty = FacultySerializer(many=True)
+    departement = DepartmentSerializer(many=True)
     nationnality = NationnalitySerializer(many=True)
 
     class Meta:
