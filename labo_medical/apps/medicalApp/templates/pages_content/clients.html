@@ -32,11 +32,11 @@
 
         <div class="collapse" id="ui-basic">
 
-        <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Sign up</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'login_DirecDocter' %}">Signin</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'direct_docter' %}">Contents</a></li>
-        </ul>
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Sign up</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'login_DirecDocter' %}">Signin</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'direct_docter' %}">Contents</a></li>
+            </ul>
 
         </div>
     </li>
@@ -140,7 +140,8 @@
 
             <div class="d-sm-flex align-items-center mb-4">
                 <h4 class="card-title mb-sm-0">Patients</h4>
-                <!-- <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Patients</a> -->
+                <a href="{% url 'users' %}" class="text-dark ms-auto mb-3 mb-sm-0">
+                    review request which not yet milked</a>
             </div>
 
             <!-- table -->
@@ -187,16 +188,51 @@
 
             <!-- </div> -->
             <div class="d-flex mt-4 flex-wrap align-items-center">
-                <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p>
+                <!-- <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p> -->
+                <p class="text-muted mb-sm-0">Showing {{ clients.number }} of {{ clients.paginator.num_pages }} entries</p>
 
                 <nav class="ms-auto">
                 <ul class="pagination separated pagination-info mb-sm-0">
-                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+
+                    {% if clients.has_previous %}
+                    <li class="page-item">
+                        <a href="?page={{ clients.previous_page_number }}" class="page-link"><i class="icon-arrow-left"></i></a>
+                    </li>
+
+                    
+
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a href="#" class="page-link">
+                            <i class="icon-arrow-right"></i>
+                        </a>
+                    </li>
+
+                    {% endif %}
+
+                    {% for num in clients.paginator.page_range %}
+                    
+                    <li class="page-item {% if clients.number == num %} active {% endif %}">
+                        <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                    </li>
+
+                    {% endfor %}
+
+                    {% if clients.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{clients.next_page_number}}" class="page-link">
+                        <i class="icon-arrow-right"></i>
+                    </a>
+                    </li>
+
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a href="#" class="page-link">
+                            <i class="icon-arrow-right"></i>
+                        </a>
+                    </li>
+
+                    {% endif %}
                 </ul>
                 </nav>
 

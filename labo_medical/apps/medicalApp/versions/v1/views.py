@@ -341,7 +341,7 @@ def client_Register(request):
 
         else:
             client_send = Client_form()
-            messages.error(request, "Data is not valid ...")
+            messages.error(request, "Data is not valid, chois another one ...")
 
     else:
         client_send = Client_form()
@@ -457,21 +457,12 @@ def comment_register(request):
 
 def all_users(request):
     users = User.objects.all()
-    paginator = Paginator(users, 2)
+    paginator = Paginator(users, 4)
     pages = request.GET.get("page")
     pages_object = paginator.get_page(pages)
 
     return render(request, "pages_content/users.html", {"users":pages_object}) 
 
-
-def all_users_labo(request):
-    user = User.objects.all()   
-    # paginator = Paginator(user, 4)
-
-    # page_number = request.GET.get("page")
-    # page_object = paginator.get_page(page_number)
-
-    return render(request, "pages_content/users.html", {"users":user})
 
 def direct_docter_data(request):
     try:
@@ -484,18 +475,50 @@ def direct_docter_data(request):
     return render(request, 'pages_content/direct_docter.html', {'direct_docters':direct_docter})
 
 
+def all_users_labo(request):
+    users = User.objects.all()   
+    # paginator = Paginator(users, 2)
+    # pages = request.GET.get("page")
+    # page_object = paginator.get_page(pages)
+
+    return render(request, "pages_content/users.html", {"users":users})
+
+
 def client_data(request):
 
     try:
         User.objects.filter(role = 'client').exists()
         clients = Client.objects.select_related("user")
 
+        paginator = Paginator(clients, 5)
+        pages = request.GET.get("page")
+        page_object = paginator.get_page(pages)
+
     except:
         messages.error(request, "Data Client Does not Exist ...")
     
-    return render(request, "pages_content/clients.html", {"clients": clients})
+    return render(request, "pages_content/clients.html", {"clients": page_object})
 
 
+# data in laboratory
+def laboratory_data(request):
+    
+    try:
+        User.objects.filter(role = 'laboratory')
+
+        laborators = Docter.objects.select_related('user')
+
+        paginator = Paginator(laborators, 10).get_page(request.GET.get("page"))
+        # # pages = request.GET.get("page")
+        # page_object = 
+    
+    except:
+        messages.error(request, "laboratory Does not exist")
+
+    return render(request, "pages_content/laboratory.html", {"laborators": paginator})
+
+
+# comment data
 def comment_data(request):
     comment = Comment.objects.all()
     return render(request, "pages_content/comment.html", {"comment": comment})
@@ -504,19 +527,6 @@ def comment_data(request):
 def examen_data(request):
     examen = Exam.objects.all()
     return render(request, "pages_content/examen.html", {"examens": examen})
-
-
-def laboratory_data(request):
-    
-    try:
-        User.objects.filter(role = 'laboratory')
-
-        laborators = Docter.objects.select_related('user')
-    
-    except:
-        messages.error(request, "laboratory Does not exist")
-
-    return render(request, "pages_content/laboratory.html", {"laborators": laborators})
 
 
 def ordonnance_data(request):

@@ -144,8 +144,8 @@
         <div class="card-body">
 
             <div class="d-sm-flex align-items-center mb-4">
-                <h4 class="card-title mb-sm-0"></h4>
-                <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Patients</a>
+                <h4 class="card-title mb-sm-0">Laborators</h4>
+                <!-- <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Patients</a> -->
             </div>
 
             <!-- table -->
@@ -207,17 +207,52 @@
 
             <!-- </div> -->
             <div class="d-flex mt-4 flex-wrap align-items-center">
-                <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p>
-
+                <!-- <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 </p> -->
+                <p class="text-muted mb-sm-0">Showing {{laborators.number}} of {{laborators.paginator.num_pages}} entries</p>
                 <nav class="ms-auto">
-                <ul class="pagination separated pagination-info mb-sm-0">
-                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                </ul>
+                    
+                    <ul class="pagination separated pagination-info mb-sm-0">
+
+                        {% if laborators.has_previous %}
+                        <li class="page-item">
+                            <a href="?page={{ laborators.previous_page_number }}" class="page-link">
+                                <i class="icon-arrow-left"></i>
+                            </a>
+                        </li>
+
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a href="#" class="page-link">
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </li>
+
+                        {% endif %}
+
+                        {% for num in laborators.paginator.page_range %}
+
+                        <li class="page-item {% if laborators.number == num %} active {% endif %}">
+                            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                        </li>
+
+                        {% endfor %}
+
+                        {% if laborators.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ laborators.next_page_number }}" class="page-link">
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </li>
+                        {% else %}
+
+                        <li class="page-item disabled">
+                            <a href="#" class="page-link">
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </li>
+                        
+                        {% endif %}
+                    </ul>
                 </nav>
 
             </div>

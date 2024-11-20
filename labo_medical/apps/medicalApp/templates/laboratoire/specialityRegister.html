@@ -159,9 +159,17 @@
 {% block content %}
 
 <form action="" method="post">
-
+    
     {% csrf_token %}
 
+    {% if messages %}
+
+        {% for message in messages %}
+            <p class="alert alert-danger">{{message}}</p>
+        {% endfor %}
+
+    {% endif %}
+    
     <br><br><br><br>
     {{form.as_p}}
     <br>

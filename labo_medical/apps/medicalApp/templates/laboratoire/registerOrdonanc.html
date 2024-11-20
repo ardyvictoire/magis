@@ -134,11 +134,13 @@
 
 <form action="" method="post">
 
-    <div>
-        <a href="{% url 'medecin_logout' %}" class="btn btn-primary">Deconnexion</a>
-    </div>
-    <br>
+    {% if messages %}
 
+        {% for message in messages %}
+            <p class="alert alert-danger">{{message}}</p>
+        {% endfor %}
+
+    {% endif %}
 
     <div>
         <h3 class="text-primary my-3">Save Ordonnance</h3>
