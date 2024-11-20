@@ -65,7 +65,11 @@
         </a>
 
         <div class="collapse" id="forms">
-        <ul class="nav flex-column sub-menu">
+        <ul class="nav flex-column sub-menu"><a href="">
+            <form action="" method="get">
+                <button class="btn btn-secondary px-2">Do an exam</button>
+            </form>
+        </a>
             <li class="nav-item"> <a class="nav-link" href="{% url 'client' %}">view Patient</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'client_Register' %}">Save Patient</a></li>
         </ul>
@@ -172,13 +176,32 @@
                             <td>{{client.user.birthday_date}}</td>
                             <td>{{client.user.gender}}</td>
                             <td>{{client.examen_id}}</td>
-                            <td>
+                            <td class="d-flex gap-2">
                                 <a href="">
-                                    <form action="{% url 'send_client_exist' user.id %}" method="get">
-                                        <button class="btn btn-primary px-2">Add Service</button>
+                                    <form action="" method="get">
+                                        <button class="btn btn-warning px-2">Update</button>
+                                    </form>
+                                </a>
+
+                                <a href="">
+                                    <form action="" method="get">
+                                        <button class="btn btn-danger px-2">Non</button>
+                                    </form>
+                                </a>
+
+                                <a href="">
+                                    <form action="" method="get">
+                                        <button class="btn btn-secondary px-2">Do an exam</button>
+                                    </form>
+                                </a>
+
+                                <a href="">
+                                    <form action="" method="get">
+                                        <button class="btn btn-primary px-2">View</button>
                                     </form>
                                 </a>
                             </td>
+                            
                         </tr>
 
                     </tbody>

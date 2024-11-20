@@ -44,10 +44,15 @@
             <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Medical Laboratory</h5>
 
             <ul class="navbar-nav navbar-nav-right">
-  
-              <form class="search-form d-none d-md-block" action="#">
-                <i class="icon-magnifier"></i>
-                <input type="search" class="form-control" placeholder="Search Here" title="Search here">
+
+              <!-- search block -->
+
+              <form class="search-form d-none d-md-block d-fl" action="#" method="get">
+
+                {% csrf_token %}
+                <!-- <i class="icon-magnifier"></i>
+                <input type="search" class="form-control" placeholder="Search Here" title="Search here"> -->
+                <button type="button" class="btn btn-primary"><i class="icon-magnifier">Search</i></button>
               </form>
 
               <li class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center">

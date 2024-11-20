@@ -456,7 +456,7 @@ def comment_register(request):
 
 
 def all_users(request):
-    users = User.objects.all()
+    users = User.objects.all().order_by('-id')
     paginator = Paginator(users, 4)
     pages = request.GET.get("page")
     pages_object = paginator.get_page(pages)
@@ -488,7 +488,7 @@ def client_data(request):
 
     try:
         User.objects.filter(role = 'client').exists()
-        clients = Client.objects.select_related("user")
+        clients = Client.objects.select_related("user").order_by('-id')
 
         paginator = Paginator(clients, 5)
         pages = request.GET.get("page")

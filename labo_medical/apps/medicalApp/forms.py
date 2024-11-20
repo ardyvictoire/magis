@@ -21,6 +21,9 @@ class User_form(forms.ModelForm):
             'gender' : forms.Select(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Gender", "autocomplete": "off"}),
         }
 
+class Search_form(forms.Form):
+    query = forms.CharField(label="Search", max_length=150)
+
 class UserLoginForm(forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(
