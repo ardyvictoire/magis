@@ -4,10 +4,10 @@ from django.db.models import Q
 
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, redirect, render, get_object_or_404
-from .forms import *
-from .forms import Directer_Docter_form
+from .apps.medicalApp.forms import *
+from .apps.medicalApp.forms import Directer_Docter_form
 
-from .models import *
+from .apps.medicalApp.models import *
 
 # Create your views here.
 
@@ -334,6 +334,26 @@ def client_Register(request):
         client_send = Client_form()
 
     return render(request, "laboratoire/registerClients.html", {"clien": client_send})
+
+
+# speciality fom (enregister)
+def speciality_register(request):
+    form = Specialys_form(request.POST)
+
+    if request.method == 'POST':
+        
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('speciality')
+
+        else:
+            messages.error(request, "Speciality is not Valid ...")
+            form = Specialys_form()
+    else:
+        form = Specialys_form()
+    return render(request, 'laboratoire/specialityRegister.html', {'form':form})
 
 
 # Enregister L'examen

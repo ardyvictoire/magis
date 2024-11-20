@@ -8,14 +8,14 @@ from .models import *
 # table for all user
 @admin.register(User)
 class User_table(admin.ModelAdmin):
-    list_display = ("id", "userName", "email", "phone_numb", "adress", "birthday_date", "gender", "role", "created_at", "udapte_at", "delete_at")
-    search_fields = ['userName', 'email']
+    list_display = ("id", "first_name", "last_name", "email", "matricule", "email", "phone_numb", "adress", "birthday_date", "gender", "role", "created_at", "udapte_at", "delete_at")
+    search_fields = ['userName', 'email', "matricule"]
 
 
 #register Directer_Docter
 @admin.register(Director_Docter)
 class Docter_Dir_table(admin.ModelAdmin):
-    list_display = ("user", 'password')
+    list_display = ("id", "user", "password")
     search_fields = ['user']
 
 
@@ -28,13 +28,13 @@ class Speciality_table(admin.ModelAdmin):
 # Register laborateurs table
 @admin.register(Docter)
 class Docter_table(admin.ModelAdmin):
-    list_display = ("id", "speciality", "user", "password")
+    list_display = ("id", "speciality", "user")
     search_fields = ["user", "speciality"]
 
 # Register Clients
 @admin.register(Client)
 class Client_table(admin.ModelAdmin):
-    list_display = ("id", "examen_id", "user")
+    list_display = ("id", "examen_id", "user", "statut")
     search_fields = ["medecin_id", "user"]
 
 
@@ -48,8 +48,8 @@ class Exam_table(admin.ModelAdmin):
 # Register Resultat of Test
 @admin.register(Result)
 class Result_table(admin.ModelAdmin):
-    list_display = ("id", "exam", "result", "result_creat_at", "created_at", "udapte_at", "delete_at")
-    list_filter = ("result_creat_at",)
+    list_display = ("id", "exam", "result", "statut", "created_at", "udapte_at", "delete_at")
+    list_filter = ("created_at"),
     search_fields = ["exam", "result", "result_creat_at"]
 
 

@@ -8,9 +8,12 @@ from .models import Director_Docter
 class User_form(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['userName', 'email', 'phone_numb', 'adress', 'birthday_date', 'gender']
+        fields = ['first_name', 'last_name','email', 'phone_numb', 'adress', 'birthday_date', 'gender']
+
         widgets = {
-            'userName' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}),
+            'first_name' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}),
+            'last_name' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}),
+            'matricule' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}),
             'email' : forms.EmailInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "E mail", "autocomplete": "off"}),
             'phone_numb' : forms.NumberInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Phone Number", "autocomplete": "off"}),
             'adress' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Adress", "autocomplete": "off"}),
@@ -94,7 +97,7 @@ class MedecinLoginForm(forms.Form):
 
 # cliet form
 class Client_form(User_form):
-        
+
     examen_id = forms.ModelChoiceField(
         queryset = Exam.objects.all(),
         widget=forms.Select(
@@ -108,7 +111,7 @@ class Client_exist(forms.ModelForm):
     class Meta:
         model = Client
 
-        fields = ["examen_id", ]
+        fields = ["examen_id"]
         
         widgets = {
             "examen_id" : forms.Select(
@@ -141,7 +144,7 @@ class Examen_form(forms.ModelForm):
 class Resultat_form(forms.ModelForm):
     class Meta:
         model = Result
-        fields = ["exam", "result", "result_creat_at"]
+        fields = ["exam", "result", 'statut']
         widgets = {
             "exam": forms.Select(
                 attrs={"class": "form-control border-1 border-primary", "placeholder" : "Exam", "autocomplete": "off"}
@@ -149,8 +152,9 @@ class Resultat_form(forms.ModelForm):
             "result": forms.TextInput(
                 attrs={"class": "form-control border-1 border-primary", "placeholder" : "Result", "autocomplete": "off"}
             ),
-            "result_creat_at": forms.DateInput(
-                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Creat at", "autocomplete": "off"}
+
+            "statut" : forms.Select(
+                attrs={"class": "form-control border-1 border-primary", "placeholder" : "Result", "autocomplete": "off"}
             ),
         }
 

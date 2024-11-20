@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission, AbstractBaseUser
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 from labo_medical.apps.core.models import BaseModel
 # Create your models here.
 
@@ -7,28 +7,35 @@ from labo_medical.apps.core.models import BaseModel
 # les donnees du medecin Directeur qui va enregistrer les laboratins
 class User(AbstractBaseUser, BaseModel):
     GENDER_CHOISES = (
-        ('F', 'Feminin'),
-        ('M', 'Masculin')
+         ('F', 'Feminin'),
+         ('M', 'Masculin')
     )
-
-    userName = models.TextField(max_length=60, unique=True)
-    email = models.EmailField(max_length=90, unique=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
+    matricule = models.CharField(max_length=30, blank=True, editable=False)
     phone_numb = models.CharField(max_length=23, unique=True)
     adress = models.CharField(max_length=60)
     birthday_date = models.DateField()
     gender = models.CharField(max_length=15, choices=GENDER_CHOISES)
-    role = models.TextField(max_length=30)
+    role = models.CharField(max_length=30)
 
-    USERNAME_FIELD = 'userName'
-
+    USERNAME_FIELD = 'email'
 
     def __str__(self) :
-        return self.userName
-  
+        return self.email
 
 class Director_Docter(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="docter_as_user")
-    password = models.CharField(max_length=255)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="director")
+    password = models.TextField(max_length=200)
+
+    # last_name = None 
+    # username = None 
+    # first_name = None
+    # email = None 
+    # is_staff = None 
+    # is_active = None 
+    # is_superuser = None
     
 
 
@@ -40,12 +47,12 @@ class Speciality(BaseModel):
         return self.name
     
 class Docter(models.Model):
-    speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name="docterSpeciality")
-    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="doctersClients", null=True)
-    password = models.TextField(max_length=255)
+    speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name="docters")
+    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docter", null=True)
+    password = models.CharField(max_length=200)
 
     def __str__(self) :
-        return f"{self.user.userName} Docteur"
+        return f"{self.user.email} - Docteur"
     
     class Meta:
         verbose_name = "Docter"
@@ -61,14 +68,15 @@ class Exam(BaseModel):
 
 # les donnees de la table CLIENT(Patient)
 class Client(models.Model):
-    examen_id = models.ForeignKey(Exam, on_delete=models.RESTRICT, related_name="examClient")
-    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="userClients", null=True)
-    
+    examen_id = models.ForeignKey(Exam, on_delete=models.RESTRICT, related_name="clients")
+    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="client", null=True)
+    statut = models.CharField(max_length=10)
+
     # docter_id = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docterClients", null=True)
     # password = None
 
     def __str__(self) :
-        return f"{self.user.userName} Client"
+        return f"{self.user.email} - Client"
 
     class Meta:
         verbose_name = "Client"
@@ -85,11 +93,10 @@ class Result(BaseModel):
         ('No Result', 'No Result')
     )
     exam = models.ForeignKey(
-        Exam, on_delete=models.CASCADE, related_name="resultats"
+        Exam, on_delete=models.CASCADE, related_name="results"
     )
     result = models.TextField()
-    # etat = models.CharField(max_length=15, choices=STATE_CHOISES)
-    result_creat_at = models.DateField()
+    statut = models.CharField(max_length=15, choices=STATE_CHOISES)
 
 
 # les donnees de la table commentaire du medecin a propos des resultat

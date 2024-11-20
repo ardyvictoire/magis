@@ -1,0 +1,304 @@
+{% extends '../base/baseContent.html' %}
+
+{% block navbar %}
+
+<!-- NAV BAR -->
+<ul class="nav">
+                    
+    <li class="nav-item navbar-brand-mini-wrapper">
+        <a class="nav-link navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+    </li>
+
+    <br><br>
+
+    <li class="nav-item nav-category"><span class="nav-link">DASHBOARD</span></li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'users' %}">
+            <span class="menu-title">Dashboard</span>
+            <i class="icon-screen-desktop menu-icon"></i>
+        </a>
+    </li>
+
+
+    <li class="nav-item nav-category"><span class="nav-link">CONTENT</span></li>
+
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Directer Docter</span>
+            <i class="icon-layers menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic">
+
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Sign up</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'login_DirecDocter' %}">Signin</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'direct_docter' %}">Contents</a></li>
+        </ul>
+
+        </div>
+    </li>
+
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <span class="menu-title">Laboratin</span>
+            <i class="icon-globe menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="icons">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'medecin_Register' %}">Save</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'laboratory' %}">View</a></li>
+            </ul>
+        </div>
+
+    </li>
+
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
+        <span class="menu-title">Clients (Patient)</span>
+        <i class="icon-book-open menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="forms">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{% url 'client' %}">view Patient</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'client_Register' %}">Save Patient</a></li>
+        </ul>
+        </div>
+    </li>
+
+    <!-- <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+        <span class="menu-title">Specialty</span>
+        <i class="icon-disc menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="auth">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Save </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> View </a></li>
+        </ul>
+        </div>
+
+    </li> -->
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'speciality' %}">
+            <span class="menu-title">Speciality</span>
+        </a>
+    </li>
+    
+
+
+    <li class="nav-item nav-category"><span class="nav-link">Laboratory Activity</span></li>
+
+
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <span class="menu-title">Examen</span>
+            <i class="icon-disc menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'examens' %}"> View </a></li>
+                <!-- <li class="nav-item"> <a class="nav-link" href="{% url 'user_labo' %}"> Save </a></li> -->
+            </ul>
+        </div>
+
+
+    </li>
+
+<li class="nav-item nav-category"><span class="nav-link">Help</span></li>
+<!-- <li class="nav-item">
+    <a class="nav-link" href="../../docs/documentation.html" target="_blank">
+    <span class="menu-title">Documentation</span>
+    <i class="icon-folder-alt menu-icon"></i>
+    </a>
+</li> -->
+
+</ul>
+
+{% endblock navbar %}
+
+
+{% block content %}
+AAAAAA
+{% if users %}
+    <div class="row quick-action-toolbar">
+    
+        <div class="col-md-12 grid-margin">
+
+            <div class="card">
+                
+                <div class="card-header d-block d-md-flex">
+                <h5 class="mb-0">Count</h5>
+                <p class="ms-auto mb-0">All Result Dashboard<i class="icon-bulb"></i></p>
+                </div>
+
+                <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
+                <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+                    <button type="button" class="btn px-0"> <i class="icon-user me-2"></i>Clients</button>
+                </div>
+
+                <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+                    <button type="button" class="btn px-0"><i class="icon-docs me-2"></i> Laboratin </button>
+                </div>
+
+                <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+                    <button type="button" class="btn px-0"><i class="icon-folder me-2"></i> Specialty </button>
+                </div>
+
+                <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+                    <button type="button" class="btn px-0"><i class="icon-book-open me-2"></i>Exam</button>
+                </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Table of users -->
+    
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="d-sm-flex align-items-center mb-4">
+                        <h4 class="card-title mb-sm-0">Patients</h4>
+                        <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Patients</a>
+                    </div>
+
+                    <!-- table -->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="font-weight-medium">
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">#</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">User_name</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">email</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">phone Num</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Adress</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Birthaday data</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Gender</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Action</th>
+                                    <!-- <th scope="col">Action</th> -->
+                                </tr>
+                            </thead>
+            
+                            
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <th scope="row">{{user.id}}</th>
+                                    <td>{{user.userName}}</td>
+                                    <td>{{user.email}} $</td>
+                                    <td>{{user.phone_numb}}</td>
+                                    <td>{{user.adress}}</td>
+                                    <td>{{user.birthday_date}} </td>
+                                    <td>{{user.gender}}</td>
+                                    <td>
+                                        <a href="">
+                                            <form action="{% url 'send_client_exist' user.id %}" method="get">
+                                                <button class="btn btn-primary px-2">Add Service</button>
+                                            </form>
+                                        </a>
+                                    </td>
+                                </tr>
+                    
+                            </tbody>
+                            {% endfor %}
+                        </table>
+
+                    <!-- </div> -->
+                    <div class="d-flex mt-4 flex-wrap align-items-center">
+                        <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p>
+
+                        <nav class="ms-auto">
+                        <ul class="pagination separated pagination-info mb-sm-0">
+                            <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
+                            <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">2</a></li>
+                            <li class="page-item"><a href="#" class="page-link">3</a></li>
+                            <li class="page-item"><a href="#" class="page-link">4</a></li>
+                            <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                        </ul>
+                        </nav>
+
+                    </div>
+                    </div>
+                </div>
+                
+            </div>
+            </div>
+        </div>
+    {% else %}
+
+    <br><p class="alert alert-danger">There are no Personal</p>
+    {% endif %}
+
+    
+
+    <!-- <div class="">
+
+        <div>
+            <a href="{% url 'resultat_Register' %}" class="btn btn-success">Add Exam</a>
+            <a href="{% url 'deconnexion' %}" class="btn btn-primary">Deconnexion</a>
+        </div>
+        <br>
+
+        <h3 class="alert alert-success">Les Membes</h3>
+        {% if  users %}
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User_name</th>
+                <th scope="col">email</th>
+                <th scope="col">phone Num</th>
+                <th scope="col">Adress</th>
+                <th scope="col">Birthaday data</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+
+            {% for user in users %}
+            <tbody>
+            <tr>
+                <th scope="row">{{user.id}}</th>
+                <td>{{user.userName}}</td>
+                <td>{{user.email}} $</td>
+                <td>{{user.phone_numb}}</td>
+                <td>{{user.adress}}</td>
+                <td>{{user.birthday_date}} </td>
+                <td>{{user.gender}}</td>
+                <td>
+                    <a href="">
+                        <form action="{% url 'send_client_exist' user.id %}" method="get">
+                            <button class="btn btn-primary">Add Service</button>
+                        </form>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+
+    {% else %}
+    <h4 class="alert alert-danger"></h4>
+    {% endif %}
+    </div> -->
+
+{% endblock content %}

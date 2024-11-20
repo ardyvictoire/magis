@@ -1,5 +1,29 @@
-
 {% extends '../base/baseContent.html' %}
+
+{% block profile  %}
+
+<li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+  
+    <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+        <img class="img-xs rounded-circle ms-2" src="assets/images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> Ardy Victory </span></a>
+    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+
+        <div class="dropdown-header text-center">
+            <img class="img-md rounded-circle" src="assets/images/faces/face8.jpg" alt="Profile image">
+            <p class="mb-1 mt-3">Henry Klein</p>
+            <p class="font-weight-light text-muted mb-0">kleinhenry@gmail.com</p>
+        </div>
+
+        <a class="dropdown-item"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
+        <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> Messages</a>
+        <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i> Activity</a>
+        <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> FAQ</a>
+        <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+    </div>
+</li>
+
+{% endblock profile %}
+
 
 
 {% block navbar %}
@@ -129,92 +153,20 @@
 
 </ul>
 
-
 {% endblock navbar %}
-
-
-
 
 
 {% block content %}
 
-<h4>
-    <a href="{% url 'speciality_register'%}" class="btn btn-primary">Add speciality</a>
-</h4><br>
+<form action="" method="post">
 
-{% if specialits %}
+    {% csrf_token %}
 
-<div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-
-            <div class="d-sm-flex align-items-center mb-4">
-                <h4 class="card-title mb-sm-0">Specialty</h4>
-                <!-- <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Patients</a> -->
-            </div>
-
-            <!-- table -->
-                <table class="table table-hover">
-                <thead>
-                    <tr class="font-weight-medium">
-                        <th scope="col" style="text-transform: capitalize; font-weight: bolder;">#</th>
-                        <th scope="col" style="text-transform: capitalize; font-weight: bolder;">Name</th>
-                        <!-- <th scope="col" style="text-transform: capitalize; font-weight: bolder;">Prix</th> -->
-                        <th scope="col" style="text-transform: capitalize; font-weight: bolder;">Action</th>
-                        <!-- <th scope="col">Action</th> -->
-                    </tr>
-                </thead>
-    
-                {% for speciality in specialits %}
-                    <tbody>
-                        <tr>
-                            <th scope="row">{{speciality.id}}</th>
-                            <td>{{speciality.name}}</td>
-                            <td class="d-flex gap-2">
-                                <a href="">
-                                    <form action="" method="get">
-                                        {% csrf_token %}
-                                        <button class="btn btn-warning px-2">Update</button>
-                                    </form>
-                                </a>
-
-                                <a href="">
-                                    <form action="" method="get">
-                                        {% csrf_token %}
-                                        <button class="btn btn-danger px-2">Delete</button>
-                                    </form>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                
-                {% endfor %}
-                </table>
-
-            <!-- </div> -->
-            <div class="d-flex mt-4 flex-wrap align-items-center">
-                <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p>
-
-                <nav class="ms-auto">
-                <ul class="pagination separated pagination-info mb-sm-0">
-                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                </ul>
-                </nav>
-
-            </div>
-            </div>
-        </div>
-        
-    </div>
-    </div>
-</div>
-{% else %}
-<p class="alert alert-primary">There are no Specialty </p>
-{% endif %}
+    <br><br><br><br>
+    {{form.as_p}}
+    <br>
+    <button type="submit" class="btn btn-primary">Send</button>
+    <br><br><br><br><br><br><br><br><br><br>
+</form>
 
 {% endblock content %}

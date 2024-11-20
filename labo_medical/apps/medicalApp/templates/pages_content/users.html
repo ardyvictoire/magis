@@ -13,7 +13,7 @@
         <li class="nav-item nav-category"><span class="nav-link">DASHBOARD</span></li>
 
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{% url 'users' %}">
                 <span class="menu-title">Dashboard</span>
                 <i class="icon-screen-desktop menu-icon"></i>
             </a>
@@ -32,9 +32,9 @@
             <div class="collapse" id="ui-basic">
 
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Sign up</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Signin</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Contents</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Sign up</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'login_DirecDocter' %}">Signin</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'direct_docter' %}">Contents</a></li>
             </ul>
 
             </div>
@@ -49,8 +49,8 @@
 
             <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Save</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">View</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'medecin_Register' %}">Save</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'laboratory' %}">View</a></li>
                 </ul>
             </div>
 
@@ -65,13 +65,13 @@
 
             <div class="collapse" id="forms">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/forms/basic_elements.html">Save Patient</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/forms/basic_elements.html">view Patient</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'client' %}">view Patient</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'client_Register' %}">Save Patient</a></li>
             </ul>
             </div>
         </li>
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
 
             <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
             <span class="menu-title">Specialty</span>
@@ -85,8 +85,14 @@
             </ul>
             </div>
 
+        </li> -->
 
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'speciality' %}">
+                <span class="menu-title">Speciality</span>
+            </a>
         </li>
+        
 
 
         <li class="nav-item nav-category"><span class="nav-link">Laboratory Activity</span></li>
@@ -101,8 +107,8 @@
 
             <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Save </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> View </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'examens' %}"> View </a></li>
+                    <!-- <li class="nav-item"> <a class="nav-link" href="{% url 'user_labo' %}"> Save </a></li> -->
                 </ul>
             </div>
 
@@ -124,6 +130,7 @@
 
 {% block content %}
 
+{% if users %}
     <div class="row quick-action-toolbar">
     
         <div class="col-md-12 grid-margin">
@@ -163,7 +170,7 @@
 
 
     <!-- Table of users -->
-    {% if users %}
+    
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -178,7 +185,9 @@
                             <thead>
                                 <tr class="font-weight-medium">
                                     <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">#</th>
-                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">User_name</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Matricule</th>
+                                    <td scope="col" style="font-weight: bolder; text-transform: capitalize; ">First_name</td>
+                                    <td scope="col" style="font-weight: bolder; text-transform: capitalize; ">Last_name</td>
                                     <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">email</th>
                                     <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">phone Num</th>
                                     <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Adress</th>
@@ -194,8 +203,10 @@
                                 {% for user in users %}
                                 <tr>
                                     <th scope="row">{{user.id}}</th>
-                                    <td>{{user.userName}}</td>
-                                    <td>{{user.email}} $</td>
+                                    <td>{{user.matricule}}</td>
+                                    <td>{{user.first_name}}</td>
+                                    <td>{{user.last_name}}</td>
+                                    <td>{{user.email}} </td>
                                     <td>{{user.phone_numb}}</td>
                                     <td>{{user.adress}}</td>
                                     <td>{{user.birthday_date}} </td>
@@ -219,12 +230,44 @@
 
                         <nav class="ms-auto">
                         <ul class="pagination separated pagination-info mb-sm-0">
-                            <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                            <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                            
+                            {% if users.has_previous %}
+                            <li class="">
+                                <a href="?page={{ previous_page_number }}" class="page-link">
+                                    <i class="icon-arrow-left"></i>
+                                </a>
+                            </li>
+                            
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a href="#" class="page-link">
+                                    <i class="icon-arrow-left"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+                           
+                            {% for num in users.paginator.page_range %}
+                            <li class="page-item {% if users.number == next %} active {% endif %}">
+                                <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                            </li>
+                            {% endfor %}
+
+                            {% if users.has_next %}
+                            <li class="page-item">
+                                <a href="?page={{ users.next_page_number }}" class="page-link"><i class="icon-arrow-right"></i></a>
+                            </li>
+
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a href="#" class="page-link">
+                                    <i class="icon-arrow-right"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+
+
+
+
                         </ul>
                         </nav>
 
@@ -235,59 +278,9 @@
             </div>
             </div>
         </div>
-    {% endif %}
-
-    
-
-    <!-- <div class="">
-
-        <div>
-            <a href="{% url 'resultat_Register' %}" class="btn btn-success">Add Exam</a>
-            <a href="{% url 'deconnexion' %}" class="btn btn-primary">Deconnexion</a>
-        </div>
-        <br>
-
-        <h3 class="alert alert-success">Les Membes</h3>
-        {% if  users %}
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">User_name</th>
-                <th scope="col">email</th>
-                <th scope="col">phone Num</th>
-                <th scope="col">Adress</th>
-                <th scope="col">Birthaday data</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-
-            {% for user in users %}
-            <tbody>
-            <tr>
-                <th scope="row">{{user.id}}</th>
-                <td>{{user.userName}}</td>
-                <td>{{user.email}} $</td>
-                <td>{{user.phone_numb}}</td>
-                <td>{{user.adress}}</td>
-                <td>{{user.birthday_date}} </td>
-                <td>{{user.gender}}</td>
-                <td>
-                    <a href="">
-                        <form action="{% url 'send_client_exist' user.id %}" method="get">
-                            <button class="btn btn-primary">Add Service</button>
-                        </form>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-            {% endfor %}
-        </table>
-
     {% else %}
-    <h4 class="alert alert-danger"></h4>
+
+    <br><p class="alert alert-danger">There are no Personal</p>
     {% endif %}
-    </div> -->
 
 {% endblock content %}
