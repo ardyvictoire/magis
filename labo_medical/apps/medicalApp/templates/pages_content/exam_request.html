@@ -185,35 +185,6 @@
                         </a>
                     </div>
 
-                    <div class="col-sm-6 col-md-3 text-center btn-wrapper">
-                        <!-- <button type="button" class="btn px-0"><i class="icon-docs me-2"></i> Laboratin </button> -->
-                        <a href="{% url 'speciality' %}" class="btn px-0 d-flex align-items-center flex-column gap-2"> 
-                            <div> 
-                                <i class="icon-user me-2"> </i>Speciality
-                            </div>
-
-                            <div>
-                                <h2>{{ spec }}</h2>
-                            </div>
-
-                        </a>
-                    </div>
-
-                    <div class="col-sm-6 col-md-3 text-center btn-wrapper">
-                        <!-- <button type="button" class="btn px-0"><i class="icon-docs me-2"></i> Laboratin </button> -->
-                        <a href="{% url 'examens' %}" class="btn px-0 d-flex align-items-center flex-column gap-2"> 
-                            <div> 
-                                <i class="icon-user me-2"> </i>Exam
-                            </div>
-
-                            <div>
-                                <h2>{{ exam }}</h2>
-                            </div>
-
-                        </a>
-                    </div>
-                </div>
-
             </div>
 
         </div>
@@ -229,8 +200,8 @@
                 <div class="card-body">
 
                     <div class="d-sm-flex align-items-center mb-4">
-                        <h4 class="card-title mb-sm-0">All Users</h4>
-                        <!-- <a href="{% url 'client' %}" class="text-dark ms-auto mb-3 mb-sm-0"> View all patient</a> -->
+                        <h4 class="card-title mb-sm-0">Request Exam</h4>
+                        <a href="{% url 'client' %}" class="text-dark ms-auto mb-3 mb-sm-0"> View all patient</a>
                     </div>
 
                     <!-- table -->
@@ -246,7 +217,8 @@
                                     <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Adress</th>
                                     <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Birthaday data</th>
                                     <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Gender</th>
-                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Action</th>
+                                    <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Statut</th>
+                                    <!-- <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Action</th> -->
                                     <!-- <th scope="col">Action</th> -->
                                 </tr>
                             </thead>
@@ -256,15 +228,25 @@
                                 {% for user in users %}
                                 <tr>
                                     <th scope="row">{{user.id}}</th>
-                                    <td>{{user.matricule}}</td>
-                                    <td>{{user.first_name}}</td>
-                                    <td>{{user.last_name}}</td>
-                                    <td>{{user.email}} </td>
-                                    <td>{{user.phone_numb}}</td>
-                                    <td>{{user.adress}}</td>
-                                    <td>{{user.birthday_date}} </td>
-                                    <td>{{user.gender}}</td>
-                                    <td class="d-flex gap-2">
+                                    <td>{{user.user.matricule}}</td>
+                                    <td>{{user.user.first_name}}</td>
+                                    <td>{{user.user.last_name}}</td>
+                                    <td>{{user.user.email}} </td>
+                                    <td>{{user.user.phone_numb}}</td>
+                                    <td>{{user.user.adress}}</td>
+                                    <td>{{user.user.birthday_date}} </td>
+                                    <td>{{user.user.gender}}</td>
+                                    <td>
+                                        {% if user.statut == 'False' %}
+                                        <a href="">
+                                            <form action="" method="get">
+                                                <button class="btn btn-danger px-2">False</button>
+                                            </form>
+                                        </a>
+                                        
+                                        {% endif%}
+                                    </td>
+                                    <!-- <td class="d-flex gap-2">
                                         <a href="">
                                             <form action="{% url 'send_client_exist' user.id %}" method="get">
                                                 <button class="btn btn-warning px-2">Select User</button>
@@ -276,7 +258,7 @@
                                                 <button class="btn btn-primary px-2">View</button>
                                             </form>
                                         </a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                     
                             </tbody>

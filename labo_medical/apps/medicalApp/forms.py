@@ -8,12 +8,13 @@ from .models import Director_Docter
 class User_form(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name','email', 'phone_numb', 'adress', 'birthday_date', 'gender']
+        fields = ['first_name', 'last_name', 'username', 'email', 'phone_numb', 'adress', 'birthday_date', 'gender']
 
         widgets = {
-            'first_name' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}),
-            'last_name' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}),
-            'matricule' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}),
+            'first_name' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "First_name", "autocomplete": "off"}),
+            'last_name' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Last_name", "autocomplete": "off"}),
+            'username':forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "User_Name", "autocomplete": "off"}),
+            'matricule' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Matricule", "autocomplete": "off"}),
             'email' : forms.EmailInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "E mail", "autocomplete": "off"}),
             'phone_numb' : forms.NumberInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Phone Number", "autocomplete": "off"}),
             'adress' : forms.TextInput(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Adress", "autocomplete": "off"}),
@@ -21,25 +22,26 @@ class User_form(forms.ModelForm):
             'gender' : forms.Select(attrs={"class": "form-control border-1 border-primary", "placeholder" : "Gender", "autocomplete": "off"}),
         }
 
+
+# form for search 
 class Search_form(forms.Form):
     query = forms.CharField(label="Search", max_length=150)
 
 class UserLoginForm(forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(
-            {"class": "form-control", "autocomplete": "off"}
+    username = forms.CharField(
+        widget=forms.TextInput(
+            {"class": "form-control",  "placeholder" : "User_name", "autocomplete": "off"}
         )
     )
 
     password = forms.CharField(
         widget= forms.PasswordInput(
-            attrs={"class": "form-control border-1 border-primary", "placeholder" : "Password", "autocomplete": "off"}
+            attrs={"class": "form-control border-1", "placeholder" : "Password", "autocomplete": "off"}
         )
     )
 
 class Directer_Docter_form(User_form):
     
-
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={"class": "form-control border-1 border-primary", "placeholder" : "Password", "autocomplete": "off"}
@@ -84,18 +86,20 @@ class Docter_form(User_form):
 
 # Login Medecin
 class MedecinLoginForm(forms.Form):
-    names = forms.CharField(
-        max_length=50,
-        widget=forms.TextInput(
-            attrs={"class": "form-control border-1 border-primary", "placeholder" : "UserName", "autocomplete": "off"}
-        )
-    )
 
     email = forms.EmailField(
         widget=forms.EmailInput(
             {"class": "form-control border-1 border-primary", "placeholder" : "Email", "autocomplete": "off"}
         )
     )
+    
+    password = forms.CharField(
+        max_length=255,
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control border-1 border-primary", "placeholder" : "Password", "autocomplete": "off"}
+        )
+    )
+
 
 
 # cliet form

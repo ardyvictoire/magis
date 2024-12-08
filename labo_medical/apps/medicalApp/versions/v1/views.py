@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from django.utils import timezone
 from django.core.paginator import Paginator
+from django.db.models import Count
 
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, redirect, render, get_object_or_404
@@ -47,52 +48,51 @@ def send_client_exist(request, pk):
 
 
 # Docter Directer
-def Docter_Direct_Inscription(request):
+def Docter_Direct_Inscript(request):
 
     if request.method == 'POST':
         
         # dirDocter = User_form(request.POST)
-        form = Directer_Docter_form(request.POST)
+        direct_form = Directer_Docter_form(request.POST)
 
-        if form.is_valid():
+        if direct_form.is_valid():
 
             # userName = form.cleaned_data['userName']
-            email = form.cleaned_data['email']
-            phone_numb = form.cleaned_data['phone_numb']
+            email = direct_form.cleaned_data['email']
+            phone_numb = direct_form.cleaned_data['phone_numb']
 
-
-            try:
-                get_email_and_role = User.objects.get(Q(email = email) | Q(phone_numb=phone_numb))
+            try: 
+                get_email_phone = User.objects.get(Q(email = email) | Q(phone_numb=phone_numb))
                 # get_email_and_role 
 
                 messages.error(request, "User is exist chois another one ...")
-                form = Directer_Docter_form()
+                direct_form = Directer_Docter_form()
 
-            except User.DoesNotExist:
+            except User.DoesNotExist :
 
-                first_name = form.cleaned_data['first_name']
-                last_name = form.cleaned_data['last_name']
-                email = form.cleaned_data['email']
-                phone_numb = form.cleaned_data['phone_numb']
-                adress = form.cleaned_data['adress']
-                birthday_date = form.cleaned_data['birthday_date']
-                gender = form.cleaned_data['gender']
+                first_name = direct_form.cleaned_data['first_name']
+                last_name = direct_form.cleaned_data['last_name']
+                username = direct_form.cleaned_data['username']
+                email = direct_form.cleaned_data['email']
+                phone_numb = direct_form.cleaned_data['phone_numb']
+                adress = direct_form.cleaned_data['adress']
+                birthday_date = direct_form.cleaned_data['birthday_date']
+                gender = direct_form.cleaned_data['gender']
                 role = "superUser"
-
-                password = form.cleaned_data['password']
-                    # user = userName
-
+                password = direct_form.cleaned_data['password']
 
                 docter_user = User.objects.create(
-                    first_name =  first_name,
+                    first_name = first_name,
                     last_name = last_name,
-                    email = email, 
-                    phone_numb = phone_numb, 
-                    adress = adress, 
-                    birthday_date = birthday_date, 
+                    username = username,
+                    phone_numb=phone_numb, 
+                    email= email, 
+                    adress=adress, 
+                    birthday_date=birthday_date,
                     gender = gender,
                     role = role,
-                )
+                    password=password
+                ) 
 
                 year = timezone.now().year
                 format_id = f"{docter_user.id:02d}"
@@ -103,25 +103,17 @@ def Docter_Direct_Inscription(request):
                 docter_user.save()
 
                 docter = Director_Docter.objects.create(
-                    password = password, 
-                    # user = user, 
                     user = docter_user,
                 )
 
-                # docter_user.save()
-
-                # docter_user.set_password(password)
-
-                return redirect('login_DirecDocter')
+                return redirect('direct_docter')
         else:
-            messages.error(request, "The datas is not a save ...")
-            dirDocter = User_form()
-            form = Directer_Docter_form()
+            messages.error(request, "The datas is not a valid ...")
+            direct_form = Directer_Docter_form()
     else:
-        dirDocter = User_form()
-        form = Directer_Docter_form()
+        direct_form = Directer_Docter_form()
 
-    return render(request, "medecDirecteur/inscription.html", {"form": form})
+    return render(request, "medecDirecteur/inscription.html", {"form": direct_form})
             
 # directer docter login
 def login_user(request):
@@ -131,21 +123,29 @@ def login_user(request):
 
         if form.is_valid():
 
-            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
-            try:
-                user = User.objects.get(email=email, password=password)
-                login(request, user)
-                return redirect("login_DirecDocter")
             
-            except:
-                messages.error(request, "Email ou Mot de pass ne pas correcte ...")
+            user = authenticate(request, username = username, password = password)
+
+            if user is not None:
+
+                login(request, user)
+                    
+                return redirect("client")
+                
+            else:
+                messages.error(request, "Username or password it is not valid ...")
                 form = UserLoginForm() 
 
+            # except User.DoesNotExist :
+            #     messages.error(request, "Username or password it is not valid ...")
+            #     form = UserLoginForm()
         else:
-            messages.error(request, "Email ou Mot de pass ne pas correcte ...")
+            messages.error(request, "Data it is not valid ...")
             form = UserLoginForm()
+
     else:
         form = UserLoginForm()
 
@@ -191,6 +191,7 @@ def medecin_Register(request):
                 # userName = med_form.cleaned_data['userName']
                 first_name = med_form.cleaned_data['first_name']
                 last_name = med_form.cleaned_data['last_name']
+                username = med_form.cleaned_data['username']
                 email = med_form.cleaned_data['email']
                 phone_numb = med_form.cleaned_data['phone_numb']
                 adress = med_form.cleaned_data['adress']
@@ -201,16 +202,18 @@ def medecin_Register(request):
                 password = med_form.cleaned_data['password']
                 speciality = med_form.cleaned_data['speciality']
 
-                    # userName=userName, 
+                # userName=userName, 
                 user_as_labor = User.objects.create(
                     first_name = first_name,
                     last_name = last_name,
+                    username = username,
                     phone_numb=phone_numb, 
                     email= email, 
                     adress=adress, 
                     birthday_date=birthday_date,
                     gender = gender,
                     role = role,
+                    password=password
                 ) 
 
                 years = timezone.now().year
@@ -223,21 +226,17 @@ def medecin_Register(request):
                 labor = Docter.objects.create(
                     speciality=speciality,
                     user=user_as_labor,
-                    password=password
                 )
 
-                # data_gene = User_form()
                 med_form = Docter_form()
                 return redirect("laboratory")
-                
-            # except:
-            #     messages.error(request, "User is exist chois another one ...")
-            #     med_form = Docter_form()
         else:
             messages.error(request, "data is invalid ....")
             med_form = Docter_form()
+
     else:
         med_form = Docter_form()
+
     return render(request, "laboratoire/registreMedecin.html", {"med": med_form})
 
 
@@ -250,22 +249,45 @@ def medecin_login(request):
         form = MedecinLoginForm(request.POST)
 
         if form.is_valid():
-            names = form.cleaned_data["names"]
+
             email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+
+            
+            # Vérifiez si le médecin existe avec le l'email et password
 
             try:
-                # Vérifiez si le médecin existe avec le nom et l'email
-                medecin = Docter.objects.get(names=names, email=email)
+                medecin = User.objects.get(email = email, password = password)
 
-                # Ici, vous pouvez éventuellement stocker l'ID du médecin dans la session
-                request.session["medecin_id"] = medecin.id
 
-                return redirect("client_Register")
+                if medecin is not None :
 
-            # Erreur si le médecin n'est pas trouvé
-            except Docter.DoesNotExist:
+                    if medecin.role == 'laboratory' :
 
-                form.add_error(None, "Nom d'utilisateur ou email invalide.")
+                        login(request, medecin)
+
+                        return redirect("client_Register")
+                    
+                    else :
+                        messages.error(request, "Data is not valid ...")
+                        form = MedecinLoginForm() 
+
+                    
+                    # form = MedecinLoginForm() 
+
+                        
+                    # Ici, vous pouvez éventuellement stocker l'ID du médecin dans la session
+                    # request.session["medecin_id"] = medecin.id
+                else:
+                    messages.error(request, "Email or password is incorrect ...")
+                    form = MedecinLoginForm() 
+
+            except User.DoesNotExist: 
+                messages.error(request, "Email or password is incorrect ...")
+                form = MedecinLoginForm() 
+
+        else:
+            messages.error(request, "Data is not Valid ...")
     else:
         form = MedecinLoginForm()
 
@@ -284,10 +306,7 @@ def medecin_logout(request):
 def client_Register(request):
     if request.method == "POST":
 
-    
-        
         client_send = Client_form(request.POST)
-
 
         if client_send.is_valid():
 
@@ -303,6 +322,7 @@ def client_Register(request):
 
                 first_name = client_send.cleaned_data['first_name']
                 last_name = client_send.cleaned_data['last_name']
+                username = client_send.cleaned_data['username'],
                 email = client_send.cleaned_data['email']
                 phone_numb = client_send.cleaned_data['phone_numb']
                 adress = client_send.cleaned_data['adress']
@@ -310,18 +330,21 @@ def client_Register(request):
                 gender = client_send.cleaned_data['gender']
                 role = 'client'
                 statut = False
+                password = "client"
 
                 examen_id = client_send.cleaned_data['examen_id']
 
                 user_as_clien = User.objects.create(
                     first_name = first_name,
                     last_name = last_name,
+                    username = username,
                     email = email, 
                     phone_numb = phone_numb, 
                     adress = adress, 
                     birthday_date = birthday_date,
                     gender = gender, 
                     role = role, 
+                    password = password, 
                 )
 
                 year = timezone.now().year
@@ -347,7 +370,6 @@ def client_Register(request):
         client_send = Client_form()
 
     return render(request, "laboratoire/registerClients.html", {"clien": client_send})
-
 
 # speciality fom (enregister)
 def speciality_register(request):
@@ -452,34 +474,72 @@ def comment_register(request):
     return render(request, "laboratoire/registerComment.html", {"comments": comment})
 
 
+# ========================================================>
+
 # LES FONCTIONS POUR LES PAGES DES CONTENUS
 
+#=========================================================>
 
 def all_users(request):
     users = User.objects.all().order_by('-id')
     paginator = Paginator(users, 4)
-    pages = request.GET.get("page")
+    pages = request.GET.get("page", 1)
     pages_object = paginator.get_page(pages)
+    total_clients = Client.objects.count()
+    total_laboratin = Docter.objects.count()
+    total_speciality = Speciality.objects.count()
+    total_exam = Exam.objects.count()
 
-    return render(request, "pages_content/users.html", {"users":pages_object}) 
+    return render(request, "pages_content/users.html", {
+        "users":pages_object, 
+        "total":total_clients,
+        "lab" : total_laboratin,
+        "spec" : total_speciality,
+        "exam" : total_exam
+    }) 
+
+# patient doesnot examenit
+
+def request_exam(request):
+
+    try:
+        clients = Client.objects.filter(statut='False')
+        
+        if clients.exists(): 
+
+            users = clients.select_related("user").order_by('-id')
+            paginator = Paginator(users, 4) 
+            pages = request.GET.get("page", 1) 
+            pages_objects = paginator.get_page(pages)
+        else:
+            messages.error(request, "Data is not exist ...")
+
+    except :
+        messages.error(request, "Data is not exist ...")
+
+    return render(request, "pages_content/exam_request.html", {"users": pages_objects})
+
+
+
 
 
 def direct_docter_data(request):
     try:
         User.objects.filter(role = 'superUser')
+        direct_docter = Director_Docter.objects.select_related('user').order_by('-id')
 
-        direct_docter = Director_Docter.objects.select_related('user')
+        paginator = Paginator(direct_docter, 8)
+        pages = request.GET.get("page")
+        page_object = paginator.get_page(pages, 1)
+
     except:
         messages.error(request, "Data is not exist ...")
         
-    return render(request, 'pages_content/direct_docter.html', {'direct_docters':direct_docter})
+    return render(request, 'pages_content/direct_docter.html', {"direct_docters" : page_object})
 
 
 def all_users_labo(request):
-    users = User.objects.all()   
-    # paginator = Paginator(users, 2)
-    # pages = request.GET.get("page")
-    # page_object = paginator.get_page(pages)
+    users = User.objects.all()  
 
     return render(request, "pages_content/users.html", {"users":users})
 
@@ -493,6 +553,8 @@ def client_data(request):
         paginator = Paginator(clients, 5)
         pages = request.GET.get("page")
         page_object = paginator.get_page(pages)
+
+        
 
     except:
         messages.error(request, "Data Client Does not Exist ...")
@@ -509,7 +571,7 @@ def laboratory_data(request):
         laborators = Docter.objects.select_related('user')
 
         paginator = Paginator(laborators, 10).get_page(request.GET.get("page"))
-        # # pages = request.GET.get("page")
+        # pages = request.GET.get("page")
         # page_object = 
     
     except:
@@ -521,12 +583,19 @@ def laboratory_data(request):
 # comment data
 def comment_data(request):
     comment = Comment.objects.all()
+    # paginator = Paginator(comment, 5)
+    # pages = request.GET.get("page")
+    # page_object = paginator.get_page(pages)
+    
     return render(request, "pages_content/comment.html", {"comment": comment})
 
 
 def examen_data(request):
     examen = Exam.objects.all()
-    return render(request, "pages_content/examen.html", {"examens": examen})
+    paginator = Paginator(examen, 7)
+    pages = request.GET.get("page")
+    page_object = paginator.get_page(pages)
+    return render(request, "pages_content/examen.html", {"examens": page_object})
 
 
 def ordonnance_data(request):
@@ -541,7 +610,18 @@ def result_data(request):
 
 def speciality(request):
     speciality = Speciality.objects.all()
-    return render(request, 'pages_content/speciality.html', {'specialits':speciality})
+    paginator = Paginator(speciality, 7)
+    pages = request.GET.get("page")
+    page_object = paginator.get_page(pages)
+    return render(request, 'pages_content/speciality.html', {'specialits':page_object})
+
+
+
+# ************** COUNT **********************
+# def count_total_clients(request):
+#     total_clients = Client.objects.count()
+    
+#     return render(request, "pages_content/users.html", {"total":total_clients})
 
 # DELETE DATA IN DATA BASE
 

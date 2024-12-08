@@ -61,7 +61,7 @@ def Docter_Direct_Inscription(request):
 
         if form.is_valid():
 
-            userName = form.cleaned_data['userName']
+            username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             phone_numb = form.cleaned_data['phone_numb']
 

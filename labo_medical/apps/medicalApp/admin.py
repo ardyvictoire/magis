@@ -8,14 +8,14 @@ from .models import *
 # table for all user
 @admin.register(User)
 class User_table(admin.ModelAdmin):
-    list_display = ("id", "first_name", "last_name", "email", "matricule", "email", "phone_numb", "adress", "birthday_date", "gender", "role", "created_at", "udapte_at", "delete_at")
-    search_fields = ['userName', 'email', "matricule"]
+    list_display = ("id", "first_name", "last_name", 'username', "email", "matricule", "phone_numb", "adress", "birthday_date", "gender", "role", "password", "created_at", "udapte_at", "delete_at")
+    search_fields = ['first_name', 'last_name', 'matricule', 'email', "matricule"]
 
 
 #register Directer_Docter
 @admin.register(Director_Docter)
 class Docter_Dir_table(admin.ModelAdmin):
-    list_display = ("id", "user", "password")
+    list_display = ("id", "user")
     search_fields = ['user']
 
 

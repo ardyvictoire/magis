@@ -5,7 +5,7 @@ urlpatterns = [
 
     # all urls for register in databases
     path('send_client_exist/<int:pk>', views.send_client_exist, name = 'send_client_exist'),
-    path("inscription_admin", views.Docter_Direct_Inscription,   name="user_inscription"),
+    path("inscription_admin", views.Docter_Direct_Inscript, name="user_inscription"),
     path("laboratin_register/", views.medecin_Register, name="medecin_Register"),
     path("client_register/", views.client_Register, name="client_Register"),
     path("examen_register/", views.examen_register, name="examen_register"),
@@ -29,6 +29,8 @@ urlpatterns = [
     # all urls for get data in databases
     path('users/', views.all_users, name = "users"),
     path('user_labo', views.all_users_labo, name="user_labo"),
+
+    path('request_exam', views.request_exam, name = "request_exam"),
 
     path("direct_docter", views.direct_docter_data, name = "direct_docter"),
     path("client/", views.client_data, name="client"),

@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical Laboratory</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="{% static 'assets/vendors/simple-line-icons/css/simple-line-icons.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/flag-icon-css/css/flag-icons.min.css' %}">
@@ -23,7 +24,7 @@
      
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-  
+
           <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
   
             <a class="navbar-brand brand-logo" href="index.html">
@@ -40,21 +41,16 @@
           </div>
   
           <div class="navbar-menu-wrapper d-flex align-items-center">
-
             <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Medical Laboratory</h5>
-
             <ul class="navbar-nav navbar-nav-right">
-
-              <!-- search block -->
-
-              <form class="search-form d-none d-md-block d-fl" action="#" method="get">
-
-                {% csrf_token %}
-                <!-- <i class="icon-magnifier"></i>
-                <input type="search" class="form-control" placeholder="Search Here" title="Search here"> -->
-                <button type="button" class="btn btn-primary"><i class="icon-magnifier">Search</i></button>
-              </form>
-
+  
+              <nav class="navbar navbar-light bg-light  bg-white">
+                <form class="form-inline d-flex gap-1">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+              </nav>
+  
               <li class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center">
   
                 <a class="nav-link d-flex align-items-center dropdown-toggle" id="LanguageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,10 +74,25 @@
               </li>
   
               <!-- profile -->
-               
-               {% block profile %}
-
-               {% endblock profile %}
+              <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+  
+                <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img class="img-xs rounded-circle ms-2" src="assets/images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> Ardy Victory </span></a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+  
+                  <div class="dropdown-header text-center">
+                    <img class="img-md rounded-circle" src="assets/images/faces/face8.jpg" alt="Profile image">
+                    <p class="mb-1 mt-3">Henry Klein</p>
+                    <p class="font-weight-light text-muted mb-0">kleinhenry@gmail.com</p>
+                  </div>
+  
+                  <a class="dropdown-item"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
+                  <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> Messages</a>
+                  <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i> Activity</a>
+                  <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> FAQ</a>
+                  <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                </div>
+              </li>
   
             </ul>
   

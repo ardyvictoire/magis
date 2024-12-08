@@ -1,7 +1,22 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager
 from labo_medical.apps.core.models import BaseModel
 # Create your models here.
+
+
+
+# class UserManager(BaseUserManager):
+#     def create_user(self, username, email, password=None, **extra_fields):
+#         if not email:
+#             raise ValueError("L'email doit être renseigné")
+#         if not username:
+#             raise ValueError("Le nom d'utilisateur doit être renseigné")
+        
+#         email = self.normalize_email(email)  # Normalise l'email
+#         user = self.model(username=username, email=email, **extra_fields)
+#           # Hachage du mot de passe
+#         user.save(using=self._db)
+#         return user
 
 
 # les donnees du medecin Directeur qui va enregistrer les laboratins
@@ -12,6 +27,7 @@ class User(AbstractBaseUser, BaseModel):
     )
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    username = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     matricule = models.CharField(max_length=30, blank=True, editable=False)
     phone_numb = models.CharField(max_length=23, unique=True)
@@ -19,25 +35,22 @@ class User(AbstractBaseUser, BaseModel):
     birthday_date = models.DateField()
     gender = models.CharField(max_length=15, choices=GENDER_CHOISES)
     role = models.CharField(max_length=30)
+    password = models.TextField() 
 
-    USERNAME_FIELD = 'email'
+    # objects = UserManager() 
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self) :
-        return self.email
-
-class Director_Docter(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="director")
-    password = models.TextField(max_length=200)
-
-    # last_name = None 
-    # username = None 
-    # first_name = None
-    # email = None 
-    # is_staff = None 
-    # is_active = None 
-    # is_superuser = None
+        return self.username
     
 
+
+
+# Directer Docter
+class Director_Docter(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="director")
 
 # les donnees de la table MEDECIN
 class Speciality(BaseModel):
@@ -45,11 +58,12 @@ class Speciality(BaseModel):
 
     def __str__(self) :
         return self.name
-    
+
+# docter laboratory
 class Docter(models.Model):
     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name="docters")
-    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docter", null=True)
-    password = models.CharField(max_length=200)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="docter", null=True)
+    
 
     def __str__(self) :
         return f"{self.user.email} - Docteur"
@@ -69,12 +83,9 @@ class Exam(BaseModel):
 # les donnees de la table CLIENT(Patient)
 class Client(models.Model):
     examen_id = models.ForeignKey(Exam, on_delete=models.RESTRICT, related_name="clients")
-    user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="client", null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="client", null=True)
     statut = models.CharField(max_length=10)
-
-    # docter_id = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="docterClients", null=True)
-    # password = None
-
+    
     def __str__(self) :
         return f"{self.user.email} - Client"
 

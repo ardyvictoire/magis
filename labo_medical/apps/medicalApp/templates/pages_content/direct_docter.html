@@ -3,7 +3,6 @@
 
 {% block navbar %}
 
-<!-- NAV BARA CONTENT -->
 
 <ul class="nav">
                     
@@ -16,9 +15,16 @@
     <li class="nav-item nav-category"><span class="nav-link">DASHBOARD</span></li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'users' %}">
+        <a class="nav-link" href="{% url 'request_exam' %}">
             <span class="menu-title">Dashboard</span>
             <i class="icon-screen-desktop menu-icon"></i>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link flex justify-content-sm-between" href="{% url 'users' %}">
+            <span class="menu-title">All Users</span>
+            <i class="bi bi-people text-muted fs-5"></i>
         </a>
     </li>
 
@@ -27,27 +33,29 @@
 
     <li class="nav-item">
 
-        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <a class="nav-link flex justify-content-sm-between" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Directer Docter</span>
-            <i class="icon-layers menu-icon"></i>
+            <!-- <i class="icon-layers menu-icon"></i> -->
+            
+            <i class="bi bi-person text-muted fs-5"></i>
         </a>
 
         <div class="collapse" id="ui-basic">
 
-        <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Sign up</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'login_DirecDocter' %}">Signin</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'direct_docter' %}">Contents</a></li>
-        </ul>
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Add SuperUser</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'login_DirecDocter' %}">Signin</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'direct_docter' %}">Contents</a></li>
+            </ul>
 
         </div>
     </li>
 
     <li class="nav-item">
 
-        <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+        <a class="nav-link d-flex justify-content-sm-between" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
             <span class="menu-title">Laboratin</span>
-            <i class="icon-globe menu-icon"></i>
+            <i class="bi bi-person text-muted fs-5"></i>
         </a>
 
         <div class="collapse" id="icons">
@@ -61,16 +69,19 @@
 
     <li class="nav-item">
 
-        <a class="nav-link" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
-        <span class="menu-title">Clients (Patient)</span>
-        <i class="icon-book-open menu-icon"></i>
+        <a class="nav-link d-flex justify-content-sm-between" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
+            <span class="menu-title">Clients (Patient)</span>
+            
+            
+            <i class="bi bi-person text-muted fs-5"></i>
         </a>
 
         <div class="collapse" id="forms">
-        <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{% url 'client' %}">view Patient</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'client_Register' %}">Save Patient</a></li>
-        </ul>
+            <ul class="nav flex-column sub-menu"><a href="">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'client' %}">view Patient</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'client_Register' %}">Save Patient</a></li>
+            </ul>
+
         </div>
     </li>
 
@@ -93,6 +104,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{% url 'speciality' %}">
             <span class="menu-title">Speciality</span>
+            <i class="icon-book-open menu-icon"></i>
         </a>
     </li>
     
@@ -128,8 +140,8 @@
 
 </ul>
 
-
 {% endblock navbar %}
+
 
 {% block content %}
 
@@ -151,16 +163,17 @@
                 <table class="table table-hover">
                     <thead>
                         <tr class="font-weight-medium">
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">#</th>
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Matricule</th>
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Email</th>
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Phone Num</th>
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Adress</th>
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Birthaday data</th>
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Gender</th>
-                            <!-- <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Specialty</th> -->
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Action</th>
-                            <!-- <th scope="col">Action</th> -->
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">#</th>
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Matricule</th>
+                            <td scope="col" style="font-weight: bolder; text-transform: capitalize; ">First_name</td>
+                            <td scope="col" style="font-weight: bolder; text-transform: capitalize; ">Last_name</td>
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">email</th>
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">phone Num</th>
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Adress</th>
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Birthaday data</th>
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Gender</th>
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Role</th>
+                            <th scope="col" style="font-weight: bolder; text-transform: capitalize; ">Action</th>
                         </tr>
                     </thead>
                     
@@ -169,11 +182,14 @@
                         <tr>
                             <th scope="row">{{direct_docter.id}}</th>
                             <td>{{direct_docter.user.matricule}}</td>
+                            <td>{{direct_docter.user.first_name}}</td>
+                            <td>{{direct_docter.user.last_name}}</td>
                             <td>{{direct_docter.user.email}}</td>
                             <td>{{direct_docter.user.phone_numb}}</td>
                             <td>{{direct_docter.user.adress}}</td>
                             <td>{{direct_docter.user.birthday_date}}</td>
                             <td>{{direct_docter.user.gender}}</td>
+                            <td>{{direct_docter.user.role}}</td>
                             <td class="d-flex gap-2">
                                 <a href="">
                                     <form action="" method="get">
@@ -201,17 +217,45 @@
 
             <!-- </div> -->
             <div class="d-flex mt-4 flex-wrap align-items-center">
-                <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p>
-
+                <!-- <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p> -->
+                <p class="text-muted mb-sm-0">Showing {{ direct_docters.number }} of {{ direct_docters.paginator.num_pages}} entries</p>
+                
                 <nav class="ms-auto">
-                <ul class="pagination separated pagination-info mb-sm-0">
-                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                </ul>
+                    <ul class="pagination separated pagination-info mb-sm-0">
+                        {% if direct_docters.has_previous %}
+                        
+                        <li class="page-item">
+                            <a href="?page={{ direct_docters.previous_page_number }}" class="page-link">
+                                <i class="icon-arrow-left"></i>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a href="#" class="page-link">
+                                <i class="icon-arrow-left"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in direct_docters.paginator.page_range %}
+                        <li class="page-item {% if  direct_docters.number == num %} active {% endif %}">
+                            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                        </li>
+                        {% endfor %}
+
+                        {% if direct_docters.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ direct_docters.next_page_number }}" class="page-link"><i class="icon-arrow-right"></i></a>
+                        </li>
+
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a href="#" class="page-link">
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
                 </nav>
 
             </div>
@@ -224,7 +268,7 @@
 
 
 {% else %}
-<p class="alert alert-primary">There are no Laboratory </p>
+<p class="alert alert-danger    ">There are no Laboratory </p>
 {% endif %}
 
 {% endblock content %}

@@ -14,9 +14,16 @@
     <li class="nav-item nav-category"><span class="nav-link">DASHBOARD</span></li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'users' %}">
+        <a class="nav-link" href="{% url 'request_exam' %}">
             <span class="menu-title">Dashboard</span>
             <i class="icon-screen-desktop menu-icon"></i>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link flex justify-content-sm-between" href="{% url 'users' %}">
+            <span class="menu-title">All Users</span>
+            <i class="bi bi-people text-muted fs-5"></i>
         </a>
     </li>
 
@@ -25,15 +32,17 @@
 
     <li class="nav-item">
 
-        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <a class="nav-link flex justify-content-sm-between" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Directer Docter</span>
-            <i class="icon-layers menu-icon"></i>
+            <!-- <i class="icon-layers menu-icon"></i> -->
+            
+            <i class="bi bi-person text-muted fs-5"></i>
         </a>
 
         <div class="collapse" id="ui-basic">
 
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Sign up</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Add SuperUser</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{% url 'login_DirecDocter' %}">Signin</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{% url 'direct_docter' %}">Contents</a></li>
             </ul>
@@ -43,9 +52,9 @@
 
     <li class="nav-item">
 
-        <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+        <a class="nav-link d-flex justify-content-sm-between" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
             <span class="menu-title">Laboratin</span>
-            <i class="icon-globe menu-icon"></i>
+            <i class="bi bi-person text-muted fs-5"></i>
         </a>
 
         <div class="collapse" id="icons">
@@ -59,20 +68,19 @@
 
     <li class="nav-item">
 
-        <a class="nav-link" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
-        <span class="menu-title">Clients (Patient)</span>
-        <i class="icon-book-open menu-icon"></i>
+        <a class="nav-link d-flex justify-content-sm-between" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
+            <span class="menu-title">Clients (Patient)</span>
+            
+            
+            <i class="bi bi-person text-muted fs-5"></i>
         </a>
 
         <div class="collapse" id="forms">
-        <ul class="nav flex-column sub-menu"><a href="">
-            <form action="" method="get">
-                <button class="btn btn-secondary px-2">Do an exam</button>
-            </form>
-        </a>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'client' %}">view Patient</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'client_Register' %}">Save Patient</a></li>
-        </ul>
+            <ul class="nav flex-column sub-menu"><a href="">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'client' %}">view Patient</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'client_Register' %}">Save Patient</a></li>
+            </ul>
+
         </div>
     </li>
 
@@ -95,6 +103,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{% url 'speciality' %}">
             <span class="menu-title">Speciality</span>
+            <i class="icon-book-open menu-icon"></i>
         </a>
     </li>
     
@@ -160,6 +169,7 @@
                             <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Birthaday data</th>
                             <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Gender</th>
                             <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Exam</th>
+                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Statut</th>
                             <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Action</th>
                             <!-- <th scope="col">Action</th> -->
                         </tr>
@@ -176,6 +186,21 @@
                             <td>{{client.user.birthday_date}}</td>
                             <td>{{client.user.gender}}</td>
                             <td>{{client.examen_id}}</td>
+                            <td> 
+                                {% if client.statut == 'False' %}
+                                <a href="">
+                                    <form action="" method="get">
+                                        <button class="btn btn-danger px-2">False</button>
+                                    </form>
+                                </a>
+                                {% else %}
+                                <a href="">
+                                    <form action="" method="get">
+                                        <button class="btn btn-info px-2">True</button>
+                                    </form>
+                                </a>
+                                {% endif%}
+                            </td>
                             <td class="d-flex gap-2">
                                 <a href="">
                                     <form action="" method="get">
@@ -183,11 +208,7 @@
                                     </form>
                                 </a>
 
-                                <a href="">
-                                    <form action="" method="get">
-                                        <button class="btn btn-danger px-2">Non</button>
-                                    </form>
-                                </a>
+                               
 
                                 <a href="">
                                     <form action="" method="get">
