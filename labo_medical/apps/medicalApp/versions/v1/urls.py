@@ -41,6 +41,8 @@ urlpatterns = [
     path("result/", views.result_data, name="results"),
     path('speciality/', views.speciality, name = 'speciality'),
 
+    path('profil_client', views.profil_client, name="profil_client"),
+
 
 
     # all urls for delete data in databases

@@ -329,7 +329,7 @@ def client_Register(request):
                 birthday_date = client_send.cleaned_data['birthday_date']
                 gender = client_send.cleaned_data['gender']
                 role = 'client'
-                statut = False
+                statut = True
                 password = "client"
 
                 examen_id = client_send.cleaned_data['examen_id']
@@ -617,11 +617,10 @@ def speciality(request):
 
 
 
-# ************** COUNT **********************
-# def count_total_clients(request):
-#     total_clients = Client.objects.count()
+# profil 
+def profil_client(request):
     
-#     return render(request, "pages_content/users.html", {"total":total_clients})
+    return render(request, 'pages_content/profilClient.html')
 
 # DELETE DATA IN DATA BASE
 

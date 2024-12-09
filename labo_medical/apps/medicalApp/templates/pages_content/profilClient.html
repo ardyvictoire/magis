@@ -1,0 +1,251 @@
+{% extends '../base/baseContent.html' %}
+
+{% block navbar %}
+
+
+<ul class="nav">
+                    
+    <li class="nav-item navbar-brand-mini-wrapper">
+        <a class="nav-link navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+    </li>
+
+    <br><br>
+
+    <li class="nav-item nav-category"><span class="nav-link">DASHBOARD</span></li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'request_exam' %}">
+            <span class="menu-title">Dashboard</span>
+            <i class="icon-screen-desktop menu-icon"></i>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link flex justify-content-sm-between" href="{% url 'users' %}">
+            <span class="menu-title">All Users</span>
+            <i class="bi bi-people text-muted fs-5"></i>
+        </a>
+    </li>
+
+
+    <li class="nav-item nav-category"><span class="nav-link">CONTENT</span></li>
+
+    <li class="nav-item">
+
+        <a class="nav-link flex justify-content-sm-between" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Directer Docter</span>
+            <!-- <i class="icon-layers menu-icon"></i> -->
+            
+            <i class="bi bi-person text-muted fs-5"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic">
+
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'user_inscription' %}">Add SuperUser</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'login_DirecDocter' %}">Signin</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'direct_docter' %}">Contents</a></li>
+            </ul>
+
+        </div>
+    </li>
+
+    <li class="nav-item">
+
+        <a class="nav-link d-flex justify-content-sm-between" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <span class="menu-title">Laboratin</span>
+            <i class="bi bi-person text-muted fs-5"></i>
+        </a>
+
+        <div class="collapse" id="icons">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'medecin_Register' %}">Save</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'laboratory' %}">View</a></li>
+            </ul>
+        </div>
+
+    </li>
+
+    <li class="nav-item">
+
+        <a class="nav-link d-flex justify-content-sm-between" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
+            <span class="menu-title">Clients (Patient)</span>
+            
+            
+            <i class="bi bi-person text-muted fs-5"></i>
+        </a>
+
+        <div class="collapse" id="forms">
+            <ul class="nav flex-column sub-menu"><a href="">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'client' %}">view Patient</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'client_Register' %}">Save Patient</a></li>
+            </ul>
+
+        </div>
+    </li>
+
+    <!-- <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+        <span class="menu-title">Specialty</span>
+        <i class="icon-disc menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="auth">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Save </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> View </a></li>
+        </ul>
+        </div>
+
+    </li> -->
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'speciality' %}">
+            <span class="menu-title">Speciality</span>
+            <i class="icon-book-open menu-icon"></i>
+        </a>
+    </li>
+    
+
+
+    <li class="nav-item nav-category"><span class="nav-link">Laboratory Activity</span></li>
+
+
+    <li class="nav-item">
+
+        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <span class="menu-title">Examen</span>
+            <i class="icon-disc menu-icon"></i>
+        </a>
+
+        <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'examens' %}"> View </a></li>
+                <!-- <li class="nav-item"> <a class="nav-link" href="{% url 'user_labo' %}"> Save </a></li> -->
+            </ul>
+        </div>
+
+
+    </li>
+
+<li class="nav-item nav-category"><span class="nav-link">Help</span></li>
+<!-- <li class="nav-item">
+    <a class="nav-link" href="../../docs/documentation.html" target="_blank">
+    <span class="menu-title">Documentation</span>
+    <i class="icon-folder-alt menu-icon"></i>
+    </a>
+</li> -->
+
+</ul>
+
+{% endblock navbar %}
+
+{% block content %}
+
+<section style="background-color: #eee;">
+    <!-- <div class="container py-5"> -->
+      
+  
+      <div class="row">
+        <div class="col-lg-4">
+            <div class="card mb-4">
+
+                <div class="card-body text-center">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                        class="rounded-circle img-fluid" style="width: 150px;">
+                    <h5 class="my-3">John Smith</h5>
+                    <p class="text-muted mb-1">Full Stack Developer</p>
+                    <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                </div>
+            
+            </div>
+
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">Johnatan Smith</p>
+                </div>
+              </div>
+              <hr>
+
+              
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Gender</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">M</p>
+                    </div>
+                </div>
+                <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">example@example.com</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">	Phone Num</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">(097) 234-5678</p>
+                </div>
+              </div>
+              <hr>
+                <div class="row">
+                    
+                    <div class="col-sm-3">
+                    <p class="mb-0">Birthaday data</p>
+                    </div>
+
+                    <div class="col-sm-9">
+                    <p class="text-muted mb-0">02 Jun 2000</p>
+                    </div>
+                </div>
+              <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Address</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                    </div>
+                </div>
+
+                
+                
+            </div>
+            
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="card">
+    <div class="card-header">
+      Quote
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+      </blockquote>
+    </div>
+  </div>
+
+{% endblock content %}

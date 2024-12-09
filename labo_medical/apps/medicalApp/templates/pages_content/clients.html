@@ -169,7 +169,7 @@
                             <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Birthaday data</th>
                             <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Gender</th>
                             <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Exam</th>
-                            <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Statut</th>
+                            <!-- <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Statut</th> -->
                             <th scope="col" style="text-transform: capitalize; font-weight: bolder; ">Action</th>
                             <!-- <th scope="col">Action</th> -->
                         </tr>
@@ -186,21 +186,7 @@
                             <td>{{client.user.birthday_date}}</td>
                             <td>{{client.user.gender}}</td>
                             <td>{{client.examen_id}}</td>
-                            <td> 
-                                {% if client.statut == 'False' %}
-                                <a href="">
-                                    <form action="" method="get">
-                                        <button class="btn btn-danger px-2">False</button>
-                                    </form>
-                                </a>
-                                {% else %}
-                                <a href="">
-                                    <form action="" method="get">
-                                        <button class="btn btn-info px-2">True</button>
-                                    </form>
-                                </a>
-                                {% endif%}
-                            </td>
+                            
                             <td class="d-flex gap-2">
                                 <a href="">
                                     <form action="" method="get">
@@ -209,18 +195,31 @@
                                 </a>
 
                                
-
-                                <a href="">
-                                    <form action="" method="get">
-                                        <button class="btn btn-secondary px-2">Do an exam</button>
-                                    </form>
-                                </a>
-
+                                
                                 <a href="">
                                     <form action="" method="get">
                                         <button class="btn btn-primary px-2">View</button>
                                     </form>
                                 </a>
+
+                                {% if client.statut == 'False' %}
+                                <a href="" class="">
+                                    <form action="" method="get">
+                                        <button class="btn btn-danger px-2">Do an exam</button>
+                                    </form>
+                                </a>
+
+                                {% else %}
+                                <a href="">
+                                    <form action="" method="get">
+                                        <button class="btn btn-info px-3">Ex Passed</button>
+                                    </form>
+                                </a>
+                                {% endif %}
+
+
+                                
+
                             </td>
                             
                         </tr>
