@@ -529,12 +529,12 @@ def direct_docter_data(request):
         direct_docter = Director_Docter.objects.select_related('user').order_by('-id')
 
         paginator = Paginator(direct_docter, 8)
-        pages = request.GET.get("page")
-        page_object = paginator.get_page(pages, 1)
+        pages = request.GET.get("page", 1)
+        page_object = paginator.get_page(pages)
 
     except:
         messages.error(request, "Data is not exist ...")
-        
+    
     return render(request, 'pages_content/direct_docter.html', {"direct_docters" : page_object})
 
 

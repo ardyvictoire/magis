@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 # from labo_medical import views
@@ -12,4 +14,6 @@ urlpatterns = [
     path('medical_lab/', include('labo_medical.apps.medicalApp.versions.v1.urls')),
     path('api', include('labo_medical.apps.api.versions.v1.urls')),
 
-]
+] + static(settings.MEDIA_URL, 
+document_root=settings.MEDIA_ROOT
+)
